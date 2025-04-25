@@ -102,17 +102,20 @@ const PricingTier: React.FC<PricingTierProps> = ({
           />
         </a>
       ) : (
-        <button className={`w-full py-3 px-6 rounded-lg font-medium flex items-center justify-center group transition-all ${
-          highlighted
-            ? 'bg-white text-purple-900 hover:bg-purple-50'
-            : 'bg-purple-600 text-white hover:bg-purple-700'
-        }`}>
+        <a
+          href="#pricing"
+          className={`w-full py-3 px-6 rounded-lg font-medium flex items-center justify-center group transition-all ${
+            highlighted
+              ? 'bg-white text-purple-900 hover:bg-purple-50'
+              : 'bg-purple-600 text-white hover:bg-purple-700'
+          }`}
+        >
           Get Started
           <ArrowRight 
             size={18} 
             className="ml-2 group-hover:translate-x-1 transition-transform"
           />
-        </button>
+        </a>
       )}
     </div>
   );
