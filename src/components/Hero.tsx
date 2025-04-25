@@ -7,7 +7,7 @@ const Hero: React.FC = () => {
       <div className="container mx-auto px-4 md:px-6">
         <div className="flex flex-col md:flex-row items-center gap-12">
           <div className="md:w-1/2 space-y-6">
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-serif italic text-purple-800 font-bold leading-tight">
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-serif text-purple-800 font-bold leading-tight">
               Transform <span className="text-purple-900">Instagram Comments</span> Into Stunning Reviews
             </h1>
             <p className="text-lg md:text-xl text-gray-700 leading-relaxed">
@@ -16,13 +16,11 @@ const Hero: React.FC = () => {
               engagement in seconds.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 pt-4">
-              <a 
-                href="https://tally.so/r/wLo0l1"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="bg-purple-700 hover:bg-purple-800 text-white px-8 py-3 rounded-full text-lg font-medium transition-all flex items-center justify-center group"
+              <a
+                href="#pricing"
+                className="inline-flex items-center bg-purple-700 hover:bg-purple-800 text-white px-8 py-3 rounded-full text-lg font-medium transition-all group"
               >
-                Get Started 
+                Get Started
                 <ArrowRight className="ml-2 group-hover:translate-x-1 transition-transform" size={20} />
               </a>
               <a 
