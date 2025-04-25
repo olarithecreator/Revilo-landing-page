@@ -45,10 +45,9 @@ const GetStarted: React.FC = () => {
               </p>
               <ul className="space-y-3 mb-8">
                 {[
-                  'Generate up to 10 review cards for free',
+                  'Generate up to 3 review cards for free',
                   'No design experience required',
-                  'Share directly to your accounts',
-                  'Try all premium templates'
+                  'Share directly to your accounts'
                 ].map((item, index) => (
                   <li key={index} className="flex items-start">
                     <span className="inline-flex items-center justify-center w-5 h-5 bg-white text-purple-600 rounded-full mr-2 mt-0.5 text-xs font-bold">✓</span>

@@ -43,11 +43,11 @@ const Faq: React.FC = () => {
     },
     {
       question: "How many social media platforms does Revilo support?",
-      answer: "Revilo currently supports Twitter, Instagram, Facebook, LinkedIn, TikTok, and Google Reviews. We're constantly expanding our platform support based on user feedback."
+      answer: "Revilo currently supports Instagram. We are actively expanding our platform to include Twitter, Facebook, LinkedIn, TikTok, and Google Reviews based on user feedback."
     },
     {
       question: "Is there a limit to how many review cards I can create?",
-      answer: "Free accounts can create up to 10 review cards per month. Our paid plans offer unlimited review card creation along with additional features like advanced customization, scheduled posting, and analytics."
+      answer: "Free accounts can create 3 cards per month. Our paid plans offer unlimited review card creation along with additional features like advanced customization, scheduled posting, and analytics."
     },
     {
       question: "Can I share my review cards directly to social media?",
