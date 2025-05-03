@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import { getUniqueDownloads } from "./utils";
 
 export default function Dashboard() {
   const [userInstagram, setUserInstagram] = useState("");
@@ -75,10 +76,10 @@ export default function Dashboard() {
 
       <div className="mt-10 bg-white text-indigo-900 p-6 rounded-lg shadow max-w-xl mx-auto">
         <h4 className="font-semibold mb-2">Free Plan Notice</h4>
-        <p>You've used {downloads.length} out of 2 available free downloads.</p>
-        {downloads.length >= 2 && (
+        <p>You've used {getUniqueDownloads(downloads).length} out of 3 available free downloads.</p>
+        {getUniqueDownloads(downloads).length >= 3 && (
           <p className="text-red-600 font-bold mt-2">
-            You've reached your limit. Upgrade to unlock more templates.
+            You've reached your free download limit. Only <b>Black</b> template remains available. Upgrade to unlock more templates.
           </p>
         )}
       </div>
