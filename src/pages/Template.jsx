@@ -25,12 +25,19 @@ const scrapedComments = [
   "This is now my go-to page for all gifts!"
 ];
 
+const testimonials = [
+  "The premium templates made my brand stand out instantly!",
+  "Super easy to use and the designs are top-notch.",
+  "Upgrading was the best decision for my business."
+];
+
 export default function Template() {
   const [userInstagram, setUserInstagram] = useState("");
   const [downloads, setDownloads] = useState([]);
   const [showSharePopup, setShowSharePopup] = useState(false);
   const [shareTemplate, setShareTemplate] = useState(null);
-  const [showUpgradeModal, setShowUpgradeModal] = useState(false);
+  const [carouselIndex, setCarouselIndex] = useState(0);
+  const [mobileNavOpen, setMobileNavOpen] = useState(false);
 
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
@@ -45,22 +52,25 @@ export default function Template() {
     if (metaDesc) metaDesc.setAttribute("content", "Browse our stunning review card templates.");
   }, []);
 
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCarouselIndex((prev) => (prev + 1) % testimonials.length);
+    }, 4000);
+    return () => clearInterval(interval);
+  }, []);
+
   const handleDownload = (template) => {
     const { uniqueDownloaded, hasReachedFreeLimit } = getUserState(downloads);
-    const isFreeAfterLimit = template.id === "Black" || template.id === "White";
-    if (hasReachedFreeLimit && !isFreeAfterLimit) {
-      toast.info("After 3 free downloads, only Black and White templates remain available for free users. Please upgrade for more.");
-      return;
-    }
-    if (hasReachedFreeLimit && isFreeAfterLimit) {
-      if (downloads.some(d => d.templateId === template.id)) {
-        toast.warning("You have already downloaded this template. Please upgrade for more.");
+    // Black is always free and can be downloaded any number of times
+    if (template.id !== "Black") {
+      if (hasReachedFreeLimit) {
+        toast.info("After 3 free downloads, only the Black template remains available for free users. Please upgrade for more.");
         return;
       }
-    }
-    if (!hasReachedFreeLimit && downloads.some(d => d.templateId === template.id)) {
-      toast.warning("You have already downloaded this template.");
-      return;
+      if (downloads.some(d => d.templateId === template.id)) {
+        toast.warning("You have already downloaded this template.");
+        return;
+      }
     }
     window.open(`/templates/${template.id}.png`, "_blank");
     const newDownload = {
@@ -68,7 +78,7 @@ export default function Template() {
       templateName: template.type,
       date: new Date().toISOString(),
       instagram: userInstagram,
-      access: hasReachedFreeLimit && isFreeAfterLimit ? "free" : (hasReachedFreeLimit ? "locked" : "free")
+      access: template.id === "Black" ? "free" : (hasReachedFreeLimit ? "locked" : "free")
     };
     const updated = [...downloads, newDownload];
     localStorage.setItem("downloads", JSON.stringify(updated));
@@ -90,9 +100,51 @@ export default function Template() {
 
   return (
     <>
-      <div className="flex flex-col md:flex-row min-h-screen font-sans">
-        {/* Sidebar */}
-        <aside className="w-full md:w-56 bg-indigo-900 text-white p-6 flex flex-col justify-between md:min-h-screen">
+      {/* Mobile Navbar */}
+      <nav className="md:hidden fixed top-0 left-0 w-full bg-indigo-900 text-white flex items-center justify-between px-4 py-3 z-50 shadow-lg">
+        <span className="font-serif text-xl font-bold">Řevilo</span>
+        <button
+          className="focus:outline-none"
+          onClick={() => setMobileNavOpen(true)}
+          aria-label="Open navigation menu"
+        >
+          <svg className="w-7 h-7" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" d="M4 6h16M4 12h16M4 18h16" />
+          </svg>
+        </button>
+      </nav>
+      {/* Slide-in Mobile Nav */}
+      {mobileNavOpen && (
+        <div className="fixed inset-0 z-50 flex">
+          <div className="flex flex-col w-64 bg-white text-indigo-900 shadow-lg h-full p-6 animate-slide-in-right relative">
+            <button
+              className="absolute top-3 right-3 text-indigo-900 text-2xl focus:outline-none"
+              onClick={() => setMobileNavOpen(false)}
+              aria-label="Close navigation menu"
+            >
+              ×
+            </button>
+            <h2 className="font-serif text-2xl mb-5">Řevilo</h2>
+            <p className="text-sm mb-10">Turn your social comments into stunning review cards.</p>
+            <nav className="flex flex-col gap-4 mb-8">
+              <Link to="/template" className="bg-yellow-100 text-indigo-900 py-2 rounded font-bold text-center hover:bg-yellow-200 transition" onClick={() => setMobileNavOpen(false)}>Templates</Link>
+              <Link to="/dashboard" className="py-2 rounded border border-indigo-900 text-center hover:bg-indigo-900 hover:text-white transition" onClick={() => setMobileNavOpen(false)}>Dashboard</Link>
+            </nav>
+            <a
+              href="https://reviloapp.netlify.app"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="mt-auto py-3 bg-gradient-to-r from-purple-300 to-pink-200 text-indigo-900 font-bold text-base rounded-lg shadow-md text-center hover:from-pink-200 hover:to-purple-300 hover:text-white transition"
+            >
+              ← Back to Revilo Home
+            </a>
+          </div>
+          <div className="flex-1 bg-black bg-opacity-40" onClick={() => setMobileNavOpen(false)}></div>
+        </div>
+      )}
+      <div className="flex flex-col md:flex-row min-h-screen font-sans pt-14 md:pt-0">
+        {/* Sidebar for desktop */}
+        <aside className="hidden md:flex w-full md:w-56 bg-indigo-900 text-white p-6 flex-col justify-between md:min-h-screen">
           <div>
             <h2 className="font-serif text-2xl mb-5">Řevilo</h2>
             <p className="text-sm mb-10">Turn your social comments into stunning review cards.</p>
@@ -114,28 +166,18 @@ export default function Template() {
         {/* Main content */}
         <main className="flex-1 bg-gray-50 p-6">
           <h1 className="text-2xl md:text-3xl text-gray-800 mb-6">Templates</h1>
-          {/* Why Go Pro Section */}
-          <div className="mb-8 p-6 bg-purple-50 border border-purple-200 rounded-lg max-w-2xl mx-auto text-center">
-            <h2 className="text-xl font-bold text-purple-800 mb-2">Why Go Pro?</h2>
-            <ul className="text-purple-900 text-base mb-2 list-disc list-inside">
-              <li>Unlock all premium templates</li>
-              <li>Unlimited downloads</li>
-              <li>Stand out with exclusive designs</li>
-              <li>Priority support</li>
-            </ul>
-            <span className="text-sm text-purple-700">Upgrade now and take your brand to the next level!</span>
-          </div>
-          {/* Progress Bar for Free Downloads */}
-          <div className="mb-6 max-w-md mx-auto">
-            <div className="flex justify-between mb-1">
-              <span className="text-sm font-medium text-indigo-900">Free Downloads</span>
-              <span className="text-sm font-medium text-indigo-900">{uniqueDownloads.length} / 3</span>
-            </div>
-            <div className="w-full bg-gray-200 rounded-full h-3">
-              <div
-                className="bg-indigo-600 h-3 rounded-full transition-all"
-                style={{ width: `${(uniqueDownloads.length / 3) * 100}%` }}
-              ></div>
+          {/* Testimonial Carousel */}
+          <div className="mb-8 max-w-xl mx-auto">
+            <div className="bg-purple-50 border border-purple-200 rounded-lg p-4 text-center shadow transition-all">
+              <span className="text-purple-900 text-base italic block min-h-[32px]">{testimonials[carouselIndex]}</span>
+              <div className="flex justify-center mt-2 gap-1">
+                {testimonials.map((_, idx) => (
+                  <span
+                    key={idx}
+                    className={`inline-block w-2 h-2 rounded-full ${carouselIndex === idx ? 'bg-purple-600' : 'bg-purple-200'}`}
+                  ></span>
+                ))}
+              </div>
             </div>
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
@@ -153,7 +195,6 @@ export default function Template() {
                   onDownload={() => handleDownload(t)}
                   showFreeBadge={showFreeBadge}
                   showLockedInfo={showLockedInfo}
-                  onUpgradeClick={() => setShowUpgradeModal(true)}
                 />
               );
             })}
@@ -161,66 +202,17 @@ export default function Template() {
         </main>
       </div>
       <ToastContainer position="top-center" autoClose={3000} />
-      {/* Upgrade Modal */}
-      {showUpgradeModal && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
-          <div className="bg-white rounded-lg shadow-lg p-8 max-w-lg w-full relative animate-fade-in">
-            <button
-              className="absolute top-2 right-2 text-gray-400 hover:text-gray-700 text-2xl font-bold"
-              onClick={() => setShowUpgradeModal(false)}
-            >
-              ×
-            </button>
-            <h2 className="text-2xl font-bold text-indigo-900 mb-4">Unlock Pro Features</h2>
-            {/* Feature Comparison Table */}
-            <table className="w-full mb-4 text-sm border border-gray-200 rounded">
-              <thead>
-                <tr className="bg-gray-100">
-                  <th className="py-2 px-2 text-left">Feature</th>
-                  <th className="py-2 px-2">Free</th>
-                  <th className="py-2 px-2">Pro</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td className="py-2 px-2">Black Template</td>
-                  <td className="text-green-600 font-bold">✔️</td>
-                  <td className="text-green-600 font-bold">✔️</td>
-                </tr>
-                <tr>
-                  <td className="py-2 px-2">All Templates</td>
-                  <td className="text-red-500 font-bold">❌</td>
-                  <td className="text-green-600 font-bold">✔️</td>
-                </tr>
-                <tr>
-                  <td className="py-2 px-2">Unlimited Downloads</td>
-                  <td className="text-red-500 font-bold">❌</td>
-                  <td className="text-green-600 font-bold">✔️</td>
-                </tr>
-                <tr>
-                  <td className="py-2 px-2">Priority Support</td>
-                  <td className="text-red-500 font-bold">❌</td>
-                  <td className="text-green-600 font-bold">✔️</td>
-                </tr>
-              </tbody>
-            </table>
-            {/* Testimonials */}
-            <div className="mb-4">
-              <h3 className="font-semibold text-indigo-800 mb-2">What our users say:</h3>
-              <div className="bg-purple-50 p-3 rounded mb-2 text-purple-900 text-sm italic">“The premium templates made my brand stand out instantly!”</div>
-              <div className="bg-purple-50 p-3 rounded mb-2 text-purple-900 text-sm italic">“Super easy to use and the designs are top-notch.”</div>
-              <div className="bg-purple-50 p-3 rounded text-purple-900 text-sm italic">“Upgrading was the best decision for my business.”</div>
-            </div>
-            <Link
-              to="/pricing"
-              className="block w-full bg-gradient-to-r from-pink-500 to-purple-600 text-white font-bold py-3 rounded shadow-lg text-center text-lg hover:from-purple-600 hover:to-pink-500 transition transform hover:scale-105 animate-bounce"
-              onClick={() => setShowUpgradeModal(false)}
-            >
-              Upgrade Now
-            </Link>
-          </div>
-        </div>
-      )}
+      {/* Sticky Upgrade Banner */}
+      <div className="fixed bottom-0 left-0 w-full z-40 flex justify-center pointer-events-none">
+        <a
+          href="https://reviloapp.netlify.app/pricing"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="pointer-events-auto bg-gradient-to-r from-pink-500 to-purple-600 text-white font-bold py-3 px-8 rounded-t-lg shadow-lg text-lg hover:from-purple-600 hover:to-pink-500 transition transform hover:scale-105 animate-bounce mb-2"
+        >
+          🚀 Upgrade to Pro & Unlock All Templates
+        </a>
+      </div>
     </>
   );
 } 

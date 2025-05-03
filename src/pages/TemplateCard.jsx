@@ -29,12 +29,14 @@ export default function TemplateCard({ template, isLocked, comment, onDownload, 
             <div className="text-xs text-red-600 mb-2">Only the Black template is free after your 3 free downloads. Upgrade to unlock more.</div>
           )}
           <button disabled className="mt-3 bg-gray-300 text-white py-2 px-4 rounded w-full cursor-not-allowed mb-2">🔒 Locked</button>
-          <button
-            onClick={onUpgradeClick}
+          <a
+            href="https://reviloapp.netlify.app/pricing"
+            target="_blank"
+            rel="noopener noreferrer"
             className="block mt-1 bg-gradient-to-r from-pink-500 to-purple-600 text-white font-bold py-2 px-4 rounded w-full shadow-lg hover:from-purple-600 hover:to-pink-500 transition transform hover:scale-105 animate-bounce"
           >
             Upgrade
-          </button>
+          </a>
         </>
       ) : (
         <button onClick={onDownload} className="mt-3 bg-indigo-900 text-white py-2 px-4 rounded w-full hover:bg-indigo-800 transition">Download</button>

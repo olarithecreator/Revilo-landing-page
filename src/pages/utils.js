@@ -14,9 +14,9 @@ export function getUserState(downloads) {
 }
 
 export function isTemplateLocked(templateId, downloads) {
+  if (templateId === "Black") return false; // Black is always free
   const { uniqueDownloaded, hasReachedFreeLimit } = getUserState(downloads);
-  const isFreeAfterLimit = templateId === "Black";
-  if (hasReachedFreeLimit && !isFreeAfterLimit) return true;
+  if (hasReachedFreeLimit) return true;
   if (!hasReachedFreeLimit && downloads.some(d => d.templateId === templateId)) return true;
   return false;
 } 
