@@ -41,10 +41,8 @@ const Header: React.FC = () => {
             </a>
           ))}
           <a
-            href="https://tally.so/r/wLo0l1"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="bg-purple-600 text-white px-5 py-2 rounded-full text-base font-medium transition-all hover:bg-purple-700"
+            href="#pricing"
+            className="text-white bg-purple-700 hover:bg-purple-800 px-5 py-2.5 rounded-lg transition-all"
           >
             Get Started
           </a>
@@ -74,10 +72,8 @@ const Header: React.FC = () => {
               </a>
             ))}
             <a
-              href="https://tally.so/r/wLo0l1"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="bg-purple-600 text-white px-5 py-2 rounded-full text-center text-lg font-medium hover:bg-purple-700 transition-colors"
+              href="#pricing"
+              className="text-white bg-purple-700 hover:bg-purple-800 px-5 py-2.5 rounded-lg transition-all"
               onClick={() => setIsMobileMenuOpen(false)}
             >
               Get Started

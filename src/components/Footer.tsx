@@ -37,9 +37,12 @@ const Footer: React.FC = () => {
           <div>
             <h3 className="text-lg font-medium mb-4">Product</h3>
             <ul className="space-y-2">
-              {['Features', 'Pricing', 'Templates', 'Examples', 'Integrations'].map((item) => (
+              {["Features", "Pricing", "Templates", "Examples", "Integrations"].map((item) => (
                 <li key={item}>
-                  <a href="#" className="text-gray-400 hover:text-white transition-colors">
+                  <a
+                    href={item === "Templates" ? "#template" : "#"}
+                    className="text-gray-400 hover:text-white transition-colors"
+                  >
                     {item}
                   </a>
                 </li>

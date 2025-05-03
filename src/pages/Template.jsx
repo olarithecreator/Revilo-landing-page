@@ -20,7 +20,7 @@ const scrapedComments = [
   "This is now my go-to page for all gifts!"
 ];
 
-export default function TemplatesPage() {
+export default function Template() {
   const [userInstagram, setUserInstagram] = useState("");
   const [downloads, setDownloads] = useState([]);
   const [showSharePopup, setShowSharePopup] = useState(false);
@@ -31,6 +31,12 @@ export default function TemplatesPage() {
     setUserInstagram(params.get("instagram") || "your_handle");
     const storedDownloads = JSON.parse(localStorage.getItem("downloads")) || [];
     setDownloads(storedDownloads);
+  }, []);
+
+  useEffect(() => {
+    document.title = "Templates - Revilo";
+    const metaDesc = document.querySelector('meta[name="description"]');
+    if (metaDesc) metaDesc.setAttribute("content", "Browse our stunning review card templates.");
   }, []);
 
   const handleDownload = (template) => {
@@ -71,7 +77,7 @@ export default function TemplatesPage() {
   return (
     <div style={{ display: "flex", minHeight: "100vh", fontFamily: "sans-serif" }}>
       {/* Sidebar */}
-      <div style={{
+      <aside style={{
         width: "220px",
         backgroundColor: "#1e1b4b",
         color: "#fff",
@@ -82,7 +88,7 @@ export default function TemplatesPage() {
           Turn your social comments into stunning review cards.
         </p>
         <nav style={{ display: "flex", flexDirection: "column", gap: "20px" }}>
-          <a href="/templates" style={{
+          <a href="#templates" style={{
             background: "#f4f4c6",
             padding: "10px",
             borderRadius: "6px",
@@ -91,7 +97,7 @@ export default function TemplatesPage() {
             fontWeight: "bold",
             textDecoration: "none"
           }}>Templates</a>
-          <a href="/dashboard" style={{
+          <a href="#dashboard" style={{
             padding: "10px",
             borderRadius: "6px",
             border: "1px solid #fff",
@@ -100,10 +106,10 @@ export default function TemplatesPage() {
             textDecoration: "none"
           }}>Dashboard</a>
         </nav>
-      </div>
+      </aside>
 
       {/* Main content */}
-      <div style={{ flex: 1, background: "#f8f8fc", padding: "40px" }}>
+      <main style={{ flex: 1, background: "#f8f8fc", padding: "40px" }}>
         {/* Top users scrolling line */}
         <div style={{
           width: "100%",
@@ -170,7 +176,7 @@ export default function TemplatesPage() {
             );
           })}
         </div>
-      </div>
+      </main>
     </div>
   );
-}
+} 

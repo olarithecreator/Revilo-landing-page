@@ -5,6 +5,12 @@ export default function Dashboard() {
   const [downloads, setDownloads] = useState([]);
 
   useEffect(() => {
+    document.title = "Dashboard - Revilo";
+    const metaDesc = document.querySelector('meta[name="description"]');
+    if (metaDesc) metaDesc.setAttribute("content", "View your download stats and top templates on your Revilo dashboard.");
+  }, []);
+
+  useEffect(() => {
     const params = new URLSearchParams(window.location.search);
     setUserInstagram(params.get("instagram") || "your_handle");
     const stored = JSON.parse(localStorage.getItem("downloads")) || [];
@@ -28,7 +34,7 @@ export default function Dashboard() {
   const sortedTemplates = Object.entries(topTemplates).sort((a, b) => b[1] - a[1]).slice(0, 3);
 
   return (
-    <div style={{
+    <main style={{
       backgroundColor: "#1e1b4b",
       minHeight: "100vh",
       color: "#fff",
@@ -87,13 +93,13 @@ export default function Dashboard() {
         maxWidth: "500px"
       }}>
         <h4>Free Plan Notice</h4>
-        <p>You’ve used {downloads.length} out of 2 available free downloads.</p>
+        <p>You've used {downloads.length} out of 2 available free downloads.</p>
         {downloads.length >= 2 && (
           <p style={{ color: "red", fontWeight: "bold" }}>
-            You’ve reached your limit. Upgrade to unlock more templates.
+            You've reached your limit. Upgrade to unlock more templates.
           </p>
         )}
       </div>
-    </div>
+    </main>
   );
 }

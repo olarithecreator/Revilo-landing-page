@@ -62,7 +62,7 @@ const HowItWorks: React.FC = () => {
 
         <div className="text-center">
           <a 
-            href="#get-started" 
+            href="#pricing" 
             className="inline-flex items-center bg-purple-700 hover:bg-purple-800 text-white px-8 py-3 rounded-full text-lg font-medium transition-all group"
           >
             Get Started Now

@@ -65,9 +65,7 @@ const GetStarted: React.FC = () => {
                   onChange={setInstagramHandle}
                 />
                 <a 
-                  href="https://tally.so/r/wLo0l1"
-                  target="_blank"
-                  rel="noopener noreferrer"
+                  href="#pricing"
                   className="w-full bg-purple-700 hover:bg-purple-800 text-white px-6 py-3 rounded-lg text-lg font-medium transition-all flex items-center justify-center group mt-6"
                 >
                   Get Started
