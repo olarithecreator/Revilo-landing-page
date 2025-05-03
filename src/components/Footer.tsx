@@ -1,5 +1,6 @@
 import React from 'react';
 import { Twitter, Instagram, Linkedin, Facebook, Github } from 'lucide-react';
+import { Link } from 'react-router-dom';
 
 const Footer: React.FC = () => {
   return (
@@ -39,12 +40,21 @@ const Footer: React.FC = () => {
             <ul className="space-y-2">
               {["Features", "Pricing", "Templates", "Examples", "Integrations"].map((item) => (
                 <li key={item}>
-                  <a
-                    href={item === "Templates" ? "#template" : "#"}
-                    className="text-gray-400 hover:text-white transition-colors"
-                  >
-                    {item}
-                  </a>
+                  {item === "Templates" ? (
+                    <Link
+                      to="/template"
+                      className="text-gray-400 hover:text-white transition-colors"
+                    >
+                      {item}
+                    </Link>
+                  ) : (
+                    <a
+                      href="#"
+                      className="text-gray-400 hover:text-white transition-colors"
+                    >
+                      {item}
+                    </a>
+                  )}
                 </li>
               ))}
             </ul>

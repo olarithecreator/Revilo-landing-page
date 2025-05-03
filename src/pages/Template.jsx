@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 
 const templates = [
   { type: "Black", id: "Black", access: "free" },
@@ -88,7 +89,7 @@ export default function Template() {
           Turn your social comments into stunning review cards.
         </p>
         <nav style={{ display: "flex", flexDirection: "column", gap: "20px" }}>
-          <a href="#templates" style={{
+          <Link to="/template" style={{
             background: "#f4f4c6",
             padding: "10px",
             borderRadius: "6px",
@@ -96,15 +97,15 @@ export default function Template() {
             textAlign: "center",
             fontWeight: "bold",
             textDecoration: "none"
-          }}>Templates</a>
-          <a href="#dashboard" style={{
+          }}>Templates</Link>
+          <Link to="/dashboard" style={{
             padding: "10px",
             borderRadius: "6px",
             border: "1px solid #fff",
             textAlign: "center",
             color: "#fff",
             textDecoration: "none"
-          }}>Dashboard</a>
+          }}>Dashboard</Link>
         </nav>
       </aside>
 

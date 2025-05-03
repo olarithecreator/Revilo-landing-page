@@ -1,4 +1,5 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
+import { Routes, Route } from 'react-router-dom';
 import Header from './components/Header';
 import Hero from './components/Hero';
 import Features from './components/Features';
@@ -27,23 +28,16 @@ function Landing() {
   );
 }
 
-const routes = {
-  '': <Landing />,
-  'dashboard': <Dashboard />,
-  'templates': <Template />,
-  'template': <Template />,
-};
-
 function App() {
-  const [page, setPage] = useState(window.location.hash.replace('#', ''));
-
-  useEffect(() => {
-    const onHashChange = () => setPage(window.location.hash.replace('#', ''));
-    window.addEventListener('hashchange', onHashChange);
-    return () => window.removeEventListener('hashchange', onHashChange);
-  }, []);
-
-  return routes[page] || <Landing />;
+  return (
+    <Routes>
+      <Route path="/" element={<Landing />} />
+      <Route path="/dashboard" element={<Dashboard />} />
+      <Route path="/templates" element={<Template />} />
+      <Route path="/template" element={<Template />} />
+      {/* Add more routes as needed */}
+    </Routes>
+  );
 }
 
 export default App;

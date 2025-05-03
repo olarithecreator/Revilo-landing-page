@@ -1,5 +1,3 @@
-/// <reference types="react" />
-
 import React, { useState } from 'react';
 import { Check, ArrowRight } from 'lucide-react';
 
