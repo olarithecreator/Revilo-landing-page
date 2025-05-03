@@ -111,29 +111,6 @@ export default function Template() {
 
       {/* Main content */}
       <main style={{ flex: 1, background: "#f8f8fc", padding: "40px" }}>
-        {/* Top users scrolling line */}
-        <div style={{
-          width: "100%",
-          overflow: "hidden",
-          whiteSpace: "nowrap",
-          marginBottom: "30px",
-          background: "#eee",
-          padding: "10px 20px",
-          borderRadius: "8px",
-          fontSize: "14px",
-          animation: "scroll 15s linear infinite"
-        }}>
-          <style>{`@keyframes scroll {
-            0% { transform: translateX(100%); }
-            100% { transform: translateX(-100%); }
-          }`}</style>
-          🏆 Top Users: {getTopUsers().map(([user, count], idx) => (
-            <span key={user} style={{ marginRight: "30px" }}>
-              #{idx + 1} @{user} — {count} downloads
-            </span>
-          ))}
-        </div>
-
         <h1 style={{ fontSize: "28px", color: "#333", marginBottom: "20px" }}>Templates</h1>
         <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))", gap: "20px" }}>
           {templates.map((t, i) => {
