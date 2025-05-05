@@ -41,7 +41,15 @@ export default function TemplateCard({
         <h3 className="text-lg font-bold text-gray-800 mb-2">{template.type}</h3>
 
         {isLocked ? (
-          <p className="text-sm text-red-600 font-medium">Upgrade to unlock</p>
+          <>
+            <p className="text-sm text-red-600 font-medium">Upgrade to unlock</p>
+            <a
+              href="/pricing"
+              className="block mt-3 bg-gradient-to-r from-pink-500 to-purple-600 text-white font-bold py-2 px-4 rounded w-full shadow-lg hover:from-purple-600 hover:to-pink-500 transition transform hover:scale-105 animate-bounce"
+            >
+              Upgrade
+            </a>
+          </>
         ) : (
           <button
             className="w-full mt-2 bg-indigo-700 text-white py-2 rounded hover:bg-indigo-800 transition"
