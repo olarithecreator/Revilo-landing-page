@@ -6,13 +6,70 @@ import "react-toastify/dist/ReactToastify.css";
 import TemplateCard from "./TemplateCard";
 
 const templates = [
-  { id: "Black", type: "Black", alwaysFree: true, premiumOnly: false, description: "Classic black review card.", image: "/templates/Black.png" },
-  { id: "White", type: "White", alwaysFree: false, premiumOnly: false, description: "Clean white review card.", image: "/templates/White.png" },
-  { id: "Minimal", type: "Minimal", alwaysFree: false, premiumOnly: false, description: "Minimalist review card.", image: "/templates/Minimal.png" },
-  { id: "Vibrant", type: "Vibrant", alwaysFree: false, premiumOnly: true, description: "Vibrant colors for standout reviews.", image: "/templates/Vibrant.png" },
-  { id: "Modern", type: "Modern", alwaysFree: false, premiumOnly: true, description: "Modern style review card.", image: "/templates/Modern.png" },
-  { id: "Elegant", type: "Elegant", alwaysFree: false, premiumOnly: true, description: "Elegant and refined design.", image: "/templates/Elegant.png" },
-  { id: "Lucid", type: "Lucid", alwaysFree: false, premiumOnly: true, description: "Lucid, clear, and simple.", image: "/templates/Lucid.png" },
+  {
+    id: "Black",
+    type: "Black",
+    premiumOnly: false,
+    images: [
+      "/generated/Black_1.png",
+      "/generated/Black_2.png"
+    ]
+  },
+  {
+    id: "White",
+    type: "White",
+    premiumOnly: false,
+    images: [
+      "/generated/White_1.png",
+      "/generated/White_2.png"
+    ]
+  },
+  {
+    id: "Minimal",
+    type: "Minimal",
+    premiumOnly: false,
+    images: [
+      "/generated/Minimal_1.png",
+      "/generated/Minimal_2.png",
+      "/generated/Minimal_3.png"
+    ]
+  },
+  {
+    id: "Vibrant",
+    type: "Vibrant",
+    premiumOnly: true,
+    images: [
+      "/generated/Vibrant_1.png",
+      "/generated/Vibrant_2.png"
+    ]
+  },
+  {
+    id: "Modern",
+    type: "Modern",
+    premiumOnly: true,
+    images: [
+      "/generated/Modern_1.png",
+      "/generated/Modern_2.png"
+    ]
+  },
+  {
+    id: "Elegant",
+    type: "Elegant",
+    premiumOnly: true,
+    images: [
+      "/generated/Elegant_1.png",
+      "/generated/Elegant_2.png"
+    ]
+  },
+  {
+    id: "Lucid",
+    type: "Lucid",
+    premiumOnly: true,
+    images: [
+      "/generated/Lucid_1.png",
+      "/generated/Lucid_2.png"
+    ]
+  }
 ];
 
 const scrapedComments = [
@@ -195,6 +252,7 @@ export default function Template() {
                   onDownload={() => handleDownload(t)}
                   showFreeBadge={showFreeBadge}
                   showLockedInfo={showLockedInfo}
+                  images={t.images}
                 />
               );
             })}
