@@ -11,8 +11,18 @@ const templates = [
     type: "Black",
     premiumOnly: false,
     images: [
-      "/generated/Black_1.png",
-      "/generated/Black_2.png"
+      {
+        url: "/generated/Black_1.png",
+        profileImage: "https://randomuser.me/api/portraits/men/32.jpg",
+        username: "john_doe",
+        commentText: "Super fast delivery, love it!"
+      },
+      {
+        url: "/generated/Black_2.png",
+        profileImage: "https://randomuser.me/api/portraits/women/44.jpg",
+        username: "jane_smith",
+        commentText: "Great customer care and communication."
+      }
     ]
   },
   {
@@ -20,8 +30,18 @@ const templates = [
     type: "White",
     premiumOnly: false,
     images: [
-      "/generated/White_1.png",
-      "/generated/White_2.png"
+      {
+        url: "/generated/White_1.png",
+        profileImage: "https://randomuser.me/api/portraits/men/65.jpg",
+        username: "mike_lee",
+        commentText: "Very professional and timely!"
+      },
+      {
+        url: "/generated/White_2.png",
+        profileImage: "https://randomuser.me/api/portraits/women/22.jpg",
+        username: "susan_chen",
+        commentText: "Loved my outfit, exactly as described."
+      }
     ]
   },
   {
@@ -29,9 +49,24 @@ const templates = [
     type: "Minimal",
     premiumOnly: false,
     images: [
-      "/generated/Minimal_1.png",
-      "/generated/Minimal_2.png",
-      "/generated/Minimal_3.png"
+      {
+        url: "/generated/Minimal_1.png",
+        profileImage: "https://randomuser.me/api/portraits/men/12.jpg",
+        username: "david_ross",
+        commentText: "Excellent packaging and presentation!"
+      },
+      {
+        url: "/generated/Minimal_2.png",
+        profileImage: "https://randomuser.me/api/portraits/women/36.jpg",
+        username: "emily_jones",
+        commentText: "My friends keep asking where I ordered from."
+      },
+      {
+        url: "/generated/Minimal_3.png",
+        profileImage: "https://randomuser.me/api/portraits/men/77.jpg",
+        username: "alex_kim",
+        commentText: "This is now my go-to page for all gifts!"
+      }
     ]
   },
   {
@@ -39,8 +74,18 @@ const templates = [
     type: "Vibrant",
     premiumOnly: true,
     images: [
-      "/generated/Vibrant_1.png",
-      "/generated/Vibrant_2.png"
+      {
+        url: "/generated/Vibrant_1.png",
+        profileImage: "https://randomuser.me/api/portraits/men/32.jpg",
+        username: "john_doe",
+        commentText: "Super fast delivery, love it!"
+      },
+      {
+        url: "/generated/Vibrant_2.png",
+        profileImage: "https://randomuser.me/api/portraits/women/44.jpg",
+        username: "jane_smith",
+        commentText: "Great customer care and communication."
+      }
     ]
   },
   {
@@ -48,8 +93,18 @@ const templates = [
     type: "Modern",
     premiumOnly: true,
     images: [
-      "/generated/Modern_1.png",
-      "/generated/Modern_2.png"
+      {
+        url: "/generated/Modern_1.png",
+        profileImage: "https://randomuser.me/api/portraits/men/65.jpg",
+        username: "mike_lee",
+        commentText: "Very professional and timely!"
+      },
+      {
+        url: "/generated/Modern_2.png",
+        profileImage: "https://randomuser.me/api/portraits/women/22.jpg",
+        username: "susan_chen",
+        commentText: "Loved my outfit, exactly as described."
+      }
     ]
   },
   {
@@ -57,8 +112,18 @@ const templates = [
     type: "Elegant",
     premiumOnly: true,
     images: [
-      "/generated/Elegant_1.png",
-      "/generated/Elegant_2.png"
+      {
+        url: "/generated/Elegant_1.png",
+        profileImage: "https://randomuser.me/api/portraits/men/12.jpg",
+        username: "david_ross",
+        commentText: "Excellent packaging and presentation!"
+      },
+      {
+        url: "/generated/Elegant_2.png",
+        profileImage: "https://randomuser.me/api/portraits/women/36.jpg",
+        username: "emily_jones",
+        commentText: "My friends keep asking where I ordered from."
+      }
     ]
   },
   {
@@ -66,8 +131,18 @@ const templates = [
     type: "Lucid",
     premiumOnly: true,
     images: [
-      "/generated/Lucid_1.png",
-      "/generated/Lucid_2.png"
+      {
+        url: "/generated/Lucid_1.png",
+        profileImage: "https://randomuser.me/api/portraits/men/77.jpg",
+        username: "alex_kim",
+        commentText: "This is now my go-to page for all gifts!"
+      },
+      {
+        url: "/generated/Lucid_2.png",
+        profileImage: "https://randomuser.me/api/portraits/men/32.jpg",
+        username: "john_doe",
+        commentText: "Super fast delivery, love it!"
+      }
     ]
   }
 ];
@@ -267,8 +342,7 @@ export default function Template() {
                   onDownload={handleDownload}
                   showFreeBadge={showFreeBadge}
                   showLockedInfo={showLockedInfo}
-                  images={t.images}
-                  comments={sampleComments}
+                  slides={t.images}
                 />
               );
             })}

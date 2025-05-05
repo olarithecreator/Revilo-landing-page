@@ -4,12 +4,11 @@ import "swiper/css";
 
 export default function TemplateCard({
   template,
-  images = [],
-  comments = [],
+  slides = [],
   isLocked,
   onDownload
 }) {
-  const [commentIndex, setCommentIndex] = useState(0);
+  const [currentIndex, setCurrentIndex] = useState(0);
 
   return (
     <div className={`rounded-lg shadow relative overflow-hidden ${isLocked ? "opacity-60" : "bg-white"} transition-all`}>
@@ -18,15 +17,32 @@ export default function TemplateCard({
           spaceBetween={10}
           slidesPerView={1}
           loop={true}
-          onSlideChange={(swiper) => setCommentIndex(swiper.realIndex)}
+          onSlideChange={(swiper) => setCurrentIndex(swiper.realIndex)}
         >
-          {images.map((url, idx) => (
+          {slides.map((slide, idx) => (
             <SwiperSlide key={idx}>
-              <img
-                src={url}
-                alt={`Slide ${idx + 1}`}
-                className="w-full h-56 object-cover rounded-t-lg"
-              />
+              <div className="flex flex-col items-center justify-center">
+                <img
+                  src={slide.url}
+                  alt={`Slide ${idx + 1}`}
+                  className="w-full h-56 object-cover rounded-t-lg mb-4"
+                />
+                <img
+                  src={slide.profileImage}
+                  alt={slide.username}
+                  className="w-12 h-12 rounded-full mb-2 object-cover border"
+                />
+                <div className="font-semibold text-sm text-gray-700 mb-1">@{slide.username}</div>
+                <div className="text-gray-600 text-sm mb-2">{slide.commentText}</div>
+                {!isLocked && (
+                  <button
+                    className="w-full mt-2 bg-indigo-700 text-white py-2 rounded hover:bg-indigo-800 transition"
+                    onClick={() => onDownload(template.id, slide)}
+                  >
+                    Download Template
+                  </button>
+                )}
+              </div>
             </SwiperSlide>
           ))}
         </Swiper>
@@ -38,37 +54,6 @@ export default function TemplateCard({
       </div>
       <div className="p-4 text-center">
         <h3 className="text-lg font-bold text-gray-800 mb-2">{template.type}</h3>
-        <div className="mb-4">
-          <Swiper
-            spaceBetween={10}
-            slidesPerView={1}
-            loop={true}
-            onSlideChange={(swiper) => setCommentIndex(swiper.realIndex)}
-            className="w-full"
-          >
-            {comments.map((comment, idx) => (
-              <SwiperSlide key={idx}>
-                <div className="flex flex-col items-center justify-center">
-                  <img
-                    src={comment.profileImage}
-                    alt={comment.username}
-                    className="w-12 h-12 rounded-full mb-2 object-cover border"
-                  />
-                  <div className="font-semibold text-sm text-gray-700 mb-1">@{comment.username}</div>
-                  <div className="text-gray-600 text-sm mb-2">{comment.commentText}</div>
-                  {!isLocked && (
-                    <button
-                      className="w-full mt-2 bg-indigo-700 text-white py-2 rounded hover:bg-indigo-800 transition"
-                      onClick={() => onDownload(template.id, comment)}
-                    >
-                      Download Template
-                    </button>
-                  )}
-                </div>
-              </SwiperSlide>
-            ))}
-          </Swiper>
-        </div>
         {isLocked && (
           <>
             <p className="text-sm text-red-600 font-medium">Upgrade to unlock</p>
