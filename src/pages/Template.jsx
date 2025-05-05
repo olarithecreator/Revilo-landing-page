@@ -61,10 +61,10 @@ export default function Template() {
 
   const handleDownload = (template) => {
     const { uniqueDownloaded, hasReachedFreeLimit } = getUserState(downloads);
-    // Black is always free and can be downloaded any number of times
-    if (template.id !== "Black") {
+    // Black and White are always free and can be downloaded any number of times
+    if (!["Black", "White"].includes(template.id)) {
       if (hasReachedFreeLimit) {
-        toast.info("After 3 free downloads, only the Black template remains available for free users. Please upgrade for more.");
+        toast.info("After 3 free downloads, only the Black and White templates remain available for free users. Please upgrade for more.");
         return;
       }
       if (downloads.some(d => d.templateId === template.id)) {
@@ -78,7 +78,7 @@ export default function Template() {
       templateName: template.type,
       date: new Date().toISOString(),
       instagram: userInstagram,
-      access: template.id === "Black" ? "free" : (hasReachedFreeLimit ? "locked" : "free")
+      access: ["Black", "White"].includes(template.id) ? "free" : (hasReachedFreeLimit ? "locked" : "free")
     };
     const updated = [...downloads, newDownload];
     localStorage.setItem("downloads", JSON.stringify(updated));
@@ -184,8 +184,8 @@ export default function Template() {
             {templates.map((t, i) => {
               const isLocked = isTemplateLocked(t.id, downloads);
               const comment = scrapedComments[i % scrapedComments.length];
-              const showFreeBadge = t.id === "Black";
-              const showLockedInfo = isLocked && uniqueDownloads.length >= 3 && t.id !== "Black";
+              const showFreeBadge = ["Black", "White"].includes(t.id);
+              const showLockedInfo = isLocked && uniqueDownloads.length >= 3 && !["Black", "White"].includes(t.id);
               return (
                 <TemplateCard
                   key={t.id}
