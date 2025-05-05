@@ -156,7 +156,6 @@ const Pricing: React.FC = () => {
         "✅ Email support within 24 hours",
         "❌ Custom Template request",
         "❌ Priority Support",
-        "💰 Save 17% compared to monthly billing"
       ],
       highlighted: true
     },
@@ -176,7 +175,6 @@ const Pricing: React.FC = () => {
         "✅ Access To Templates Library",
         "✅ Priority support with 4-hour response",
         "✅ Dedicated Customer Success Manager",
-        "💰 Save 17% compared to monthly billing"
       ]
     }
   ];
@@ -203,9 +201,6 @@ const Pricing: React.FC = () => {
             </button>
             <span className={`text-sm font-medium ${isYearly ? 'text-purple-900' : 'text-gray-500'}`}>
               Yearly
-              <span className="ml-1.5 inline-flex items-center rounded-full bg-green-100 px-2 py-0.5 text-xs font-medium text-green-800">
-                Save up to 17%
-              </span>
             </span>
           </div>
         </div>
