@@ -204,14 +204,12 @@ export default function Template() {
       <ToastContainer position="top-center" autoClose={3000} />
       {/* Sticky Upgrade Banner */}
       <div className="fixed bottom-0 left-0 w-full z-40 flex justify-center pointer-events-none">
-        <a
-          href="https://reviloapp.netlify.app/pricing"
-          target="_blank"
-          rel="noopener noreferrer"
+        <Link
+          to="/pricing"
           className="pointer-events-auto bg-gradient-to-r from-pink-500 to-purple-600 text-white font-bold py-3 px-8 rounded-t-lg shadow-lg text-lg hover:from-purple-600 hover:to-pink-500 transition transform hover:scale-105 animate-bounce mb-2"
         >
           🚀 Upgrade to Pro & Unlock All Templates
-        </a>
+        </Link>
       </div>
     </>
   );

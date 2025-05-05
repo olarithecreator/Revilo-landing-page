@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { ChevronDown, ChevronUp } from 'lucide-react';
+import { Link } from 'react-router-dom';
 
 interface FaqItemProps {
   question: string;
@@ -88,13 +89,13 @@ const Faq: React.FC = () => {
           
           <div className="text-center mt-12">
             <p className="text-gray-600 mb-4">Still have questions?</p>
-            <a 
-              href="#contact" 
+            <Link 
+              to="/contact" 
               className="inline-flex items-center text-purple-700 font-medium hover:text-purple-800 transition-colors"
             >
               Contact our support team
               <ChevronDown className="ml-1 transform rotate-90" size={16} />
-            </a>
+            </Link>
           </div>
         </div>
       </div>

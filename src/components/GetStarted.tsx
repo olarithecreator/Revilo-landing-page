@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { ArrowRight, Instagram } from 'lucide-react';
+import { Link } from 'react-router-dom';
 
 interface SocialHandleInputProps {
   icon: React.ReactNode;
@@ -64,13 +65,13 @@ const GetStarted: React.FC = () => {
                   value={instagramHandle}
                   onChange={setInstagramHandle}
                 />
-                <a 
-                  href="#pricing"
+                <Link 
+                  to="/pricing"
                   className="w-full bg-purple-700 hover:bg-purple-800 text-white px-6 py-3 rounded-lg text-lg font-medium transition-all flex items-center justify-center group mt-6"
                 >
                   Get Started
                   <ArrowRight className="ml-2 group-hover:translate-x-1 transition-transform" size={20} />
-                </a>
+                </Link>
               </div>
             </div>
           </div>

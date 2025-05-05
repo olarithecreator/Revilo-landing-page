@@ -18,11 +18,11 @@ const Footer: React.FC = () => {
             </p>
             <div className="flex space-x-4">
               {[
-                { icon: <Twitter size={18} />, href: "#" },
-                { icon: <Instagram size={18} />, href: "#" },
-                { icon: <Linkedin size={18} />, href: "#" },
-                { icon: <Facebook size={18} />, href: "#" },
-                { icon: <Github size={18} />, href: "#" }
+                { icon: <Twitter size={18} />, href: "/twitter" },
+                { icon: <Instagram size={18} />, href: "/instagram" },
+                { icon: <Linkedin size={18} />, href: "/linkedin" },
+                { icon: <Facebook size={18} />, href: "/facebook" },
+                { icon: <Github size={18} />, href: "/github" }
               ].map((social, index) => (
                 <a
                   key={index}
@@ -41,19 +41,17 @@ const Footer: React.FC = () => {
               {["Features", "Pricing", "Templates", "Examples", "Integrations"].map((item) => (
                 <li key={item}>
                   {item === "Templates" ? (
-                    <Link
-                      to="/template"
-                      className="text-gray-400 hover:text-white transition-colors"
-                    >
-                      {item}
-                    </Link>
+                    <Link to="/template" className="text-gray-400 hover:text-white transition-colors">{item}</Link>
+                  ) : item === "Pricing" ? (
+                    <Link to="/pricing" className="text-gray-400 hover:text-white transition-colors">{item}</Link>
+                  ) : item === "Features" ? (
+                    <Link to="/features" className="text-gray-400 hover:text-white transition-colors">{item}</Link>
+                  ) : item === "Examples" ? (
+                    <Link to="/examples" className="text-gray-400 hover:text-white transition-colors">{item}</Link>
+                  ) : item === "Integrations" ? (
+                    <Link to="/integrations" className="text-gray-400 hover:text-white transition-colors">{item}</Link>
                   ) : (
-                    <a
-                      href="#"
-                      className="text-gray-400 hover:text-white transition-colors"
-                    >
-                      {item}
-                    </a>
+                    <Link to="/" className="text-gray-400 hover:text-white transition-colors">{item}</Link>
                   )}
                 </li>
               ))}
@@ -65,9 +63,7 @@ const Footer: React.FC = () => {
             <ul className="space-y-2">
               {['Documentation', 'API', 'Guides', 'Blog', 'Help Center'].map((item) => (
                 <li key={item}>
-                  <a href="#" className="text-gray-400 hover:text-white transition-colors">
-                    {item}
-                  </a>
+                  <Link to={`/${item.toLowerCase().replace(/ /g, '-')}`} className="text-gray-400 hover:text-white transition-colors">{item}</Link>
                 </li>
               ))}
             </ul>
@@ -78,9 +74,7 @@ const Footer: React.FC = () => {
             <ul className="space-y-2">
               {['About', 'Careers', 'Contact', 'Privacy', 'Terms'].map((item) => (
                 <li key={item}>
-                  <a href="#" className="text-gray-400 hover:text-white transition-colors">
-                    {item}
-                  </a>
+                  <Link to={`/${item.toLowerCase()}`} className="text-gray-400 hover:text-white transition-colors">{item}</Link>
                 </li>
               ))}
             </ul>
@@ -90,9 +84,9 @@ const Footer: React.FC = () => {
         <div className="pt-8 border-t border-gray-800 text-sm text-gray-400 flex flex-col md:flex-row justify-between items-center">
           <p>© {new Date().getFullYear()} Revilo. All rights reserved.</p>
           <div className="flex space-x-6 mt-4 md:mt-0">
-            <a href="#" className="hover:text-white transition-colors">Privacy Policy</a>
-            <a href="#" className="hover:text-white transition-colors">Terms of Service</a>
-            <a href="#" className="hover:text-white transition-colors">Cookie Policy</a>
+            <Link to="/privacy-policy" className="hover:text-white transition-colors">Privacy Policy</Link>
+            <Link to="/terms-of-service" className="hover:text-white transition-colors">Terms of Service</Link>
+            <Link to="/cookie-policy" className="hover:text-white transition-colors">Cookie Policy</Link>
           </div>
         </div>
       </div>

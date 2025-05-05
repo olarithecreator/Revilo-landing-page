@@ -1,5 +1,6 @@
 import React from 'react';
 import { ArrowRight } from 'lucide-react';
+import { Link } from 'react-router-dom';
 
 const Hero: React.FC = () => {
   return (
@@ -16,19 +17,19 @@ const Hero: React.FC = () => {
               engagement in seconds.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 pt-4">
-              <a
-                href="#pricing"
+              <Link
+                to="/pricing"
                 className="inline-flex items-center bg-purple-700 hover:bg-purple-800 text-white px-8 py-3 rounded-full text-lg font-medium transition-all group"
               >
                 Get Started
                 <ArrowRight className="ml-2 group-hover:translate-x-1 transition-transform" size={20} />
-              </a>
-              <a 
-                href="#how-it-works" 
+              </Link>
+              <Link 
+                to="/how-it-works" 
                 className="bg-white hover:bg-gray-100 text-purple-700 border border-purple-300 px-8 py-3 rounded-full text-lg font-medium transition-all flex items-center justify-center"
               >
                 How It Works
-              </a>
+              </Link>
             </div>
           </div>
           <div className="md:w-1/2 relative">

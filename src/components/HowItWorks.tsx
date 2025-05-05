@@ -1,5 +1,6 @@
 import React from 'react';
 import { ArrowRight } from 'lucide-react';
+import { Link } from 'react-router-dom';
 
 const HowItWorks: React.FC = () => {
   const steps = [
@@ -61,13 +62,13 @@ const HowItWorks: React.FC = () => {
         </div>
 
         <div className="text-center">
-          <a 
-            href="#pricing" 
+          <Link 
+            to="/pricing" 
             className="inline-flex items-center bg-purple-700 hover:bg-purple-800 text-white px-8 py-3 rounded-full text-lg font-medium transition-all group"
           >
             Get Started Now
             <ArrowRight className="ml-2 group-hover:translate-x-1 transition-transform" size={20} />
-          </a>
+          </Link>
         </div>
       </div>
     </section>

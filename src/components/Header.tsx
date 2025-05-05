@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Menu, X } from 'lucide-react';
+import { Link } from 'react-router-dom';
 
 const Header: React.FC = () => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -29,23 +30,23 @@ const Header: React.FC = () => {
 
         {/* Desktop Navigation */}
         <nav className="hidden md:flex space-x-8">
-          {['Features', 'How It Works', 'Examples', 'Pricing', 'FAQ'].map((item) => (
-            <a
-              key={item}
-              href={`#${item.toLowerCase().replace(/\s+/g, '-')}`}
+          {[{label: 'Features', to: '/features'}, {label: 'How It Works', to: '/how-it-works'}, {label: 'Examples', to: '/examples'}, {label: 'Pricing', to: '/pricing'}, {label: 'FAQ', to: '/faq'}].map((item) => (
+            <Link
+              key={item.label}
+              to={item.to}
               className={`text-base font-medium transition-colors ${
                 isScrolled ? 'text-gray-800 hover:text-purple-700' : 'text-gray-800 hover:text-purple-600'
               }`}
             >
-              {item}
-            </a>
+              {item.label}
+            </Link>
           ))}
-          <a
-            href="#pricing"
+          <Link
+            to="/pricing"
             className="text-white bg-purple-700 hover:bg-purple-800 px-5 py-2.5 rounded-lg transition-all"
           >
             Get Started
-          </a>
+          </Link>
         </nav>
 
         {/* Mobile Menu Button */}
@@ -61,23 +62,23 @@ const Header: React.FC = () => {
       {isMobileMenuOpen && (
         <div className="md:hidden bg-white shadow-lg absolute top-full left-0 right-0 py-4 px-4">
           <nav className="flex flex-col space-y-4">
-            {['Features', 'How It Works', 'Examples', 'Pricing', 'FAQ'].map((item) => (
-              <a
-                key={item}
-                href={`#${item.toLowerCase().replace(/\s+/g, '-')}`}
+            {[{label: 'Features', to: '/features'}, {label: 'How It Works', to: '/how-it-works'}, {label: 'Examples', to: '/examples'}, {label: 'Pricing', to: '/pricing'}, {label: 'FAQ', to: '/faq'}].map((item) => (
+              <Link
+                key={item.label}
+                to={item.to}
                 className="text-gray-800 hover:text-purple-700 text-lg font-medium"
                 onClick={() => setIsMobileMenuOpen(false)}
               >
-                {item}
-              </a>
+                {item.label}
+              </Link>
             ))}
-            <a
-              href="#pricing"
+            <Link
+              to="/pricing"
               className="text-white bg-purple-700 hover:bg-purple-800 px-5 py-2.5 rounded-lg transition-all"
               onClick={() => setIsMobileMenuOpen(false)}
             >
               Get Started
-            </a>
+            </Link>
           </nav>
         </div>
       )}

@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Check, ArrowRight } from 'lucide-react';
+import { Link } from 'react-router-dom';
 
 interface PricingTierProps {
   name: string;
@@ -100,8 +101,8 @@ const PricingTier: React.FC<PricingTierProps> = ({
           />
         </a>
       ) : (
-        <a
-          href="#pricing"
+        <Link
+          to="/pricing"
           className={`w-full py-3 px-6 rounded-lg font-medium flex items-center justify-center group transition-all ${
             highlighted
               ? 'bg-white text-purple-900 hover:bg-purple-50'
@@ -113,7 +114,7 @@ const PricingTier: React.FC<PricingTierProps> = ({
             size={18} 
             className="ml-2 group-hover:translate-x-1 transition-transform"
           />
-        </a>
+        </Link>
       )}
     </div>
   );
@@ -132,18 +133,18 @@ const Pricing: React.FC = () => {
         "✅ 3 review per month",
         "✅ Instagram review",
         "✅ PNG downloads",
+        "✅ Standard Email Support",
         "❌ No Watermarks on all reviews",
         "❌ Access To Templates Library",
-        "❌ Custom Template",
+        "❌ Custom Template request",
         "❌ Priority Support",
         "❌ Weekly review notifications",
-        "❌ Email Support"
       ]
     },
     {
-      name: "Basic",
-      monthlyPrice: "$15",
-      yearlyPrice: "$150",
+      name: "Pro",
+      monthlyPrice: "$9",
+      yearlyPrice: "$89",
       description: "For growing businesses",
       features: [
         "✅ 3 review cards per week",
@@ -153,19 +154,16 @@ const Pricing: React.FC = () => {
         "✅ PNG downloads",
         "✅ Weekly review notifications",
         "✅ Email support within 24 hours",
-        "❌ Custom Template",
-        "❌ Unlimited review cards",
+        "❌ Custom Template request",
         "❌ Priority Support",
-        "⏳ Twitter Reviews (Coming Soon!)",
-        "⏳ TikTok Reviews (Coming Soon!)",
         "💰 Save 17% compared to monthly billing"
       ],
       highlighted: true
     },
     {
       name: "Business",
-      monthlyPrice: "$30",
-      yearlyPrice: "$300",
+      monthlyPrice: "$18",
+      yearlyPrice: "$179",
       description: "For professional marketers",
       features: [
         "✅ Unlimited review cards",
@@ -174,15 +172,10 @@ const Pricing: React.FC = () => {
         "✅ Instagram review",
         "✅ PNG downloads",
         "✅ Weekly review notifications",
-        "✅ Custom Template",
+        "✅ Custom Template request",
         "✅ Access To Templates Library",
         "✅ Priority support with 4-hour response",
-        "⏳ Twitter Reviews (Coming Soon!)",
-        "⏳ TikTok Reviews (Coming Soon!)",
-        "⏳ Sentimental analysis (Coming Soon!)",
-        "⏳ Advanced Instagram analytics (Coming Soon!)",
-        "⏳ Twitter analytics (Coming Soon!)",
-        "⏳ TikTok analytics (Coming Soon!)",
+        "✅ Dedicated Customer Success Manager",
         "💰 Save 17% compared to monthly billing"
       ]
     }
@@ -231,17 +224,86 @@ const Pricing: React.FC = () => {
             />
           ))}
         </div>
+        {/* More features coming soon note */}
+        <div className="text-center mt-6 mb-2">
+          <span className="text-purple-700 font-medium text-base">
+            More features coming soon!
+          </span>
+        </div>
+        {/* Feature Comparison Table */}
+        <div className="overflow-x-auto mt-12">
+          <table className="min-w-full border border-gray-200 rounded-lg bg-white text-sm">
+            <thead>
+              <tr className="bg-gray-50">
+                <th className="py-3 px-4 text-left font-bold text-gray-700">Feature</th>
+                <th className="py-3 px-4 font-bold text-purple-700">Free</th>
+                <th className="py-3 px-4 font-bold text-purple-700">Pro</th>
+                <th className="py-3 px-4 font-bold text-purple-700">Business</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr className="border-t">
+                <td className="py-2 px-4">Review Cards per Month</td>
+                <td className="text-center">3</td>
+                <td className="text-center">12</td>
+                <td className="text-center">Unlimited</td>
+              </tr>
+              <tr className="border-t">
+                <td className="py-2 px-4">No Watermark</td>
+                <td className="text-center text-red-500 font-bold">✗</td>
+                <td className="text-center text-green-600 font-bold">✓</td>
+                <td className="text-center text-green-600 font-bold">✓</td>
+              </tr>
+              <tr className="border-t">
+                <td className="py-2 px-4">Access to Templates Library</td>
+                <td className="text-center text-red-500 font-bold">✗</td>
+                <td className="text-center text-green-600 font-bold">✓</td>
+                <td className="text-center text-green-600 font-bold">✓</td>
+              </tr>
+              <tr className="border-t">
+                <td className="py-2 px-4">Custom Template</td>
+                <td className="text-center text-red-500 font-bold">✗</td>
+                <td className="text-center text-red-500 font-bold">✗</td>
+                <td className="text-center text-green-600 font-bold">✓</td>
+              </tr>
+              <tr className="border-t">
+                <td className="py-2 px-4">Priority Support</td>
+                <td className="text-center text-red-500 font-bold">✗</td>
+                <td className="text-center text-red-500 font-bold">✗</td>
+                <td className="text-center text-green-600 font-bold">✓</td>
+              </tr>
+              <tr className="border-t">
+                <td className="py-2 px-4">Weekly Review Notifications</td>
+                <td className="text-center text-red-500 font-bold">✗</td>
+                <td className="text-center text-green-600 font-bold">✓</td>
+                <td className="text-center text-green-600 font-bold">✓</td>
+              </tr>
+              <tr className="border-t">
+                <td className="py-2 px-4">Email Support</td>
+                <td className="text-center text-red-500 font-bold">✗</td>
+                <td className="text-center text-green-600 font-bold">✓</td>
+                <td className="text-center text-green-600 font-bold">✓</td>
+              </tr>
+              <tr className="border-t">
+                <td className="py-2 px-4">Automated Review Reports</td>
+                <td className="text-center text-red-500 font-bold">✗</td>
+                <td className="text-center text-red-500 font-bold">✗</td>
+                <td className="text-center text-green-600 font-bold">✓</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
         
         <div className="mt-16 text-center">
           <p className="text-gray-600 mb-4">
             Need a custom plan for your enterprise?
           </p>
-          <a 
-            href="#contact" 
+          <Link 
+            to="/contact" 
             className="text-purple-700 font-medium hover:text-purple-800 transition-colors"
           >
             Contact us for custom pricing →
-          </a>
+          </Link>
         </div>
       </div>
     </section>
