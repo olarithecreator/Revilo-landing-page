@@ -122,10 +122,11 @@ export default function Template() {
     const url = `https://sheetdb.io/api/v1/o92oikd6sosbr?Instagram%20handle=${encodeURIComponent(handle)}`;
     const response = await fetch(url);
     const data = await response.json();
+    console.log('Fetched data from SheetDB:', data); // Debug log
     return data.map(row => ({
-      username: row.username,
-      profileImage: row["Commenter profile pics"],
-      commentText: row.Comment
+      username: row['Commenter username'],
+      profileImage: row['Commenter profile pics'],
+      commentText: row['Comment']
     }));
   };
 
