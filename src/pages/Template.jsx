@@ -124,9 +124,9 @@ export default function Template() {
     const data = await response.json();
     console.log('Fetched data from SheetDB:', data); // Debug log
     return data.map(row => ({
-      username: row['Commenter username'],
-      profileImage: row['Commenter profile pics'],
-      commentText: row['Comment']
+      username: row['username'],
+      profileImage: row['commenter profile picture'],
+      commentText: row['comment']
     }));
   };
 
