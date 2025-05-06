@@ -6,145 +6,13 @@ import "react-toastify/dist/ReactToastify.css";
 import TemplateCard from "./TemplateCard";
 
 const templates = [
-  {
-    id: "Black",
-    type: "Black",
-    premiumOnly: false,
-    images: [
-      {
-        url: "/generated/Black_1.png",
-        profileImage: "https://randomuser.me/api/portraits/men/32.jpg",
-        username: "john_doe",
-        commentText: "Super fast delivery, love it!"
-      },
-      {
-        url: "/generated/Black_2.png",
-        profileImage: "https://randomuser.me/api/portraits/women/44.jpg",
-        username: "jane_smith",
-        commentText: "Great customer care and communication."
-      }
-    ]
-  },
-  {
-    id: "White",
-    type: "White",
-    premiumOnly: false,
-    images: [
-      {
-        url: "/generated/White_1.png",
-        profileImage: "https://randomuser.me/api/portraits/men/65.jpg",
-        username: "mike_lee",
-        commentText: "Very professional and timely!"
-      },
-      {
-        url: "/generated/White_2.png",
-        profileImage: "https://randomuser.me/api/portraits/women/22.jpg",
-        username: "susan_chen",
-        commentText: "Loved my outfit, exactly as described."
-      }
-    ]
-  },
-  {
-    id: "Minimal",
-    type: "Minimal",
-    premiumOnly: false,
-    images: [
-      {
-        url: "/generated/Minimal_1.png",
-        profileImage: "https://randomuser.me/api/portraits/men/12.jpg",
-        username: "david_ross",
-        commentText: "Excellent packaging and presentation!"
-      },
-      {
-        url: "/generated/Minimal_2.png",
-        profileImage: "https://randomuser.me/api/portraits/women/36.jpg",
-        username: "emily_jones",
-        commentText: "My friends keep asking where I ordered from."
-      },
-      {
-        url: "/generated/Minimal_3.png",
-        profileImage: "https://randomuser.me/api/portraits/men/77.jpg",
-        username: "alex_kim",
-        commentText: "This is now my go-to page for all gifts!"
-      }
-    ]
-  },
-  {
-    id: "Vibrant",
-    type: "Vibrant",
-    premiumOnly: true,
-    images: [
-      {
-        url: "/generated/Vibrant_1.png",
-        profileImage: "https://randomuser.me/api/portraits/men/32.jpg",
-        username: "john_doe",
-        commentText: "Super fast delivery, love it!"
-      },
-      {
-        url: "/generated/Vibrant_2.png",
-        profileImage: "https://randomuser.me/api/portraits/women/44.jpg",
-        username: "jane_smith",
-        commentText: "Great customer care and communication."
-      }
-    ]
-  },
-  {
-    id: "Modern",
-    type: "Modern",
-    premiumOnly: true,
-    images: [
-      {
-        url: "/generated/Modern_1.png",
-        profileImage: "https://randomuser.me/api/portraits/men/65.jpg",
-        username: "mike_lee",
-        commentText: "Very professional and timely!"
-      },
-      {
-        url: "/generated/Modern_2.png",
-        profileImage: "https://randomuser.me/api/portraits/women/22.jpg",
-        username: "susan_chen",
-        commentText: "Loved my outfit, exactly as described."
-      }
-    ]
-  },
-  {
-    id: "Elegant",
-    type: "Elegant",
-    premiumOnly: true,
-    images: [
-      {
-        url: "/generated/Elegant_1.png",
-        profileImage: "https://randomuser.me/api/portraits/men/12.jpg",
-        username: "david_ross",
-        commentText: "Excellent packaging and presentation!"
-      },
-      {
-        url: "/generated/Elegant_2.png",
-        profileImage: "https://randomuser.me/api/portraits/women/36.jpg",
-        username: "emily_jones",
-        commentText: "My friends keep asking where I ordered from."
-      }
-    ]
-  },
-  {
-    id: "Lucid",
-    type: "Lucid",
-    premiumOnly: true,
-    images: [
-      {
-        url: "/generated/Lucid_1.png",
-        profileImage: "https://randomuser.me/api/portraits/men/77.jpg",
-        username: "alex_kim",
-        commentText: "This is now my go-to page for all gifts!"
-      },
-      {
-        url: "/generated/Lucid_2.png",
-        profileImage: "https://randomuser.me/api/portraits/men/32.jpg",
-        username: "john_doe",
-        commentText: "Super fast delivery, love it!"
-      }
-    ]
-  }
+  { id: "Minimal", type: "Minimal", previewImage: "/generated/Minimal_1.png", premiumOnly: false },
+  { id: "Elegant", type: "Elegant", previewImage: "/generated/Elegant_1.png", premiumOnly: true },
+  { id: "Black", type: "Black", previewImage: "/generated/Black_1.png", premiumOnly: false },
+  { id: "White", type: "White", previewImage: "/generated/White_1.png", premiumOnly: false },
+  { id: "Vibrant", type: "Vibrant", previewImage: "/generated/Vibrant_1.png", premiumOnly: true },
+  { id: "Modern", type: "Modern", previewImage: "/generated/Modern_1.png", premiumOnly: true },
+  { id: "Lucid", type: "Lucid", previewImage: "/generated/Lucid_1.png", premiumOnly: true }
 ];
 
 const scrapedComments = [
@@ -208,6 +76,10 @@ export default function Template() {
   const [shareTemplate, setShareTemplate] = useState(null);
   const [carouselIndex, setCarouselIndex] = useState(0);
   const [mobileNavOpen, setMobileNavOpen] = useState(false);
+  const [instagramHandle, setInstagramHandle] = useState("");
+  const [comments, setComments] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
 
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
@@ -229,11 +101,48 @@ export default function Template() {
     return () => clearInterval(interval);
   }, []);
 
-  const handleDownload = (templateId, comment) => {
-    // You can use templateId and comment as needed for download logic
-    // For now, just show a toast for demo
-    toast.success(`Download for template ${templateId} with comment by @${comment.username}`);
-    // ...existing download logic if needed
+  const handleDownload = async (templateId, comment) => {
+    try {
+      const apiKey = import.meta.env.VITE_BANNERBEAR_API_KEY;
+      if (!apiKey) throw new Error("Bannerbear API key not set");
+      const response = await fetch("https://api.bannerbear.com/v2/images", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${apiKey}`
+        },
+        body: JSON.stringify({
+          modifications: [
+            { name: "comment", text: comment.commentText },
+            { name: "username", text: comment.username },
+            { name: "profile_image", image_url: comment.profileImage }
+          ]
+        })
+      });
+      const data = await response.json();
+      if (data.image_url) {
+        // Download the image
+        const link = document.createElement("a");
+        link.href = data.image_url;
+        link.download = `template_${templateId}_${comment.username}.png`;
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+        // Store in localStorage
+        const downloadRecord = {
+          templateId,
+          username: comment.username,
+          comment: comment.commentText,
+          date: new Date().toISOString()
+        };
+        const prev = JSON.parse(localStorage.getItem("downloads")) || [];
+        localStorage.setItem("downloads", JSON.stringify([...prev, downloadRecord]));
+      } else {
+        throw new Error("Image generation failed");
+      }
+    } catch (err) {
+      alert("Image generation failed: " + (err.message || err));
+    }
   };
 
   const getTopUsers = () => {
@@ -246,6 +155,33 @@ export default function Template() {
 
   const uniqueDownloads = useMemo(() => getUniqueDownloads(downloads), [downloads]);
   const userState = useMemo(() => getUserState(downloads), [downloads]);
+
+  const fetchComments = async (handle) => {
+    const url = `https://sheetdb.io/api/v1/o92oikd6sosbr?Instagram%20handle=${encodeURIComponent(handle)}`;
+    const response = await fetch(url);
+    const data = await response.json();
+    return data.map(row => ({
+      username: row.username,
+      profileImage: row["Commenter profile pics"],
+      commentText: row.Comment
+    }));
+  };
+
+  const handleFetch = async (e) => {
+    e.preventDefault();
+    setLoading(true);
+    setError("");
+    try {
+      const fetchedComments = await fetchComments(instagramHandle);
+      setComments(fetchedComments);
+      if (fetchedComments.length === 0) {
+        setError("No comments found for this Instagram handle yet.");
+      }
+    } catch (err) {
+      setError("Failed to fetch comments. Please try again.");
+    }
+    setLoading(false);
+  };
 
   return (
     <>
@@ -329,6 +265,25 @@ export default function Template() {
               </div>
             </div>
           </div>
+          {/* Instagram handle input form */}
+          <form onSubmit={handleFetch} className="mb-8 flex gap-2 justify-center">
+            <input
+              value={instagramHandle}
+              onChange={e => setInstagramHandle(e.target.value)}
+              placeholder="Enter your Instagram handle"
+              className="border px-3 py-2 rounded shadow"
+            />
+            <button type="submit" className="bg-indigo-700 text-white px-4 py-2 rounded hover:bg-indigo-800 transition">Fetch Comments</button>
+          </form>
+          {loading && (
+            <div className="text-center my-8">
+              <span className="animate-spin inline-block w-6 h-6 border-4 border-indigo-700 border-t-transparent rounded-full"></span>
+              <div>Loading comments...</div>
+            </div>
+          )}
+          {error && !loading && (
+            <div className="text-center my-8 text-red-600 font-medium">{error}</div>
+          )}
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
             {templates.map((t, i) => {
               const isLocked = isTemplateLocked(t.id, downloads);
@@ -338,11 +293,11 @@ export default function Template() {
                 <TemplateCard
                   key={t.id}
                   template={t}
+                  comments={comments}
                   isLocked={isLocked}
                   onDownload={handleDownload}
                   showFreeBadge={showFreeBadge}
                   showLockedInfo={showLockedInfo}
-                  slides={t.images}
                 />
               );
             })}

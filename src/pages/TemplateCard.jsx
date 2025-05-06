@@ -2,70 +2,152 @@ import { useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 
+const templateStyles = {
+  Black: {
+    bg: "bg-black",
+    text: "text-white",
+    border: "border-white",
+    name: "text-white",
+    handle: "text-gray-400",
+    comment: "text-white italic",
+    stars: "text-yellow-400",
+    generated: "text-white"
+  },
+  Minimal: {
+    bg: "bg-[#FFF9E5]",
+    text: "text-[#7A4F1D]",
+    border: "border-[#E5C17A]",
+    name: "text-[#7A4F1D]",
+    handle: "text-gray-400",
+    comment: "text-[#7A4F1D] italic",
+    stars: "text-yellow-400",
+    generated: "text-[#7A4F1D]"
+  },
+  Elegant: {
+    bg: "bg-[#E8D8CC]",
+    text: "text-[#3B2C23]",
+    border: "border-[#3B2C23]",
+    name: "text-[#3B2C23]",
+    handle: "text-gray-400",
+    comment: "text-[#3B2C23] italic",
+    stars: "text-yellow-400",
+    generated: "text-[#3B2C23]"
+  },
+  Lucid: {
+    bg: "bg-[#F3E9FA]",
+    text: "text-[#7C3AED]",
+    border: "border-[#7C3AED]",
+    name: "text-[#7C3AED]",
+    handle: "text-gray-400",
+    comment: "text-[#7C3AED] italic",
+    stars: "text-yellow-400",
+    generated: "text-[#7C3AED]"
+  },
+  White: {
+    bg: "bg-white",
+    text: "text-black",
+    border: "border-gray-300",
+    name: "text-black",
+    handle: "text-gray-400",
+    comment: "text-black italic",
+    stars: "text-yellow-400",
+    generated: "text-gray-700"
+  },
+  Vibrant: {
+    bg: "bg-[#EDE7F6]",
+    text: "text-[#7C3AED]",
+    border: "border-[#7C3AED]",
+    name: "text-[#7C3AED]",
+    handle: "text-gray-400",
+    comment: "text-[#7C3AED] italic",
+    stars: "text-yellow-400",
+    generated: "text-[#7C3AED]"
+  },
+  Modern: {
+    bg: "bg-[#E0E0E0]",
+    text: "text-[#333]",
+    border: "border-[#333]",
+    name: "text-[#333]",
+    handle: "text-gray-400",
+    comment: "text-[#333] italic",
+    stars: "text-yellow-400",
+    generated: "text-[#333]"
+  }
+};
+
 export default function TemplateCard({
   template,
-  slides = [],
+  comments = [],
   isLocked,
   onDownload
 }) {
   const [currentIndex, setCurrentIndex] = useState(0);
+  const styles = templateStyles[template.type] || templateStyles.White;
 
   return (
-    <div className={`rounded-lg shadow relative overflow-hidden ${isLocked ? "opacity-60" : "bg-white"} transition-all`}>
-      <div className="relative">
-        <Swiper
-          spaceBetween={10}
-          slidesPerView={1}
-          loop={true}
-          onSlideChange={(swiper) => setCurrentIndex(swiper.realIndex)}
-        >
-          {slides.map((slide, idx) => (
-            <SwiperSlide key={idx}>
-              <div className="flex flex-col items-center justify-center">
+    <div className={`rounded-2xl shadow-xl relative overflow-hidden p-8 flex flex-col justify-between min-h-[420px] ${styles.bg} ${styles.text}`}>
+      <Swiper
+        spaceBetween={10}
+        slidesPerView={1}
+        loop={true}
+        onSlideChange={(swiper) => setCurrentIndex(swiper.realIndex)}
+        className="flex-1"
+      >
+        {comments.map((comment, idx) => (
+          <SwiperSlide key={idx}>
+            <div className="flex flex-col h-full justify-between">
+              {/* Top: Profile and Name */}
+              <div className="flex items-center mb-8">
                 <img
-                  src={slide.url}
-                  alt={`Slide ${idx + 1}`}
-                  className="w-full h-56 object-cover rounded-t-lg mb-4"
+                  src={comment.profileImage}
+                  alt={comment.username}
+                  className={`w-20 h-20 rounded-full border-4 ${styles.border} mr-4`}
                 />
-                <img
-                  src={slide.profileImage}
-                  alt={slide.username}
-                  className="w-12 h-12 rounded-full mb-2 object-cover border"
-                />
-                <div className="font-semibold text-sm text-gray-700 mb-1">@{slide.username}</div>
-                <div className="text-gray-600 text-sm mb-2">{slide.commentText}</div>
-                {!isLocked && (
-                  <button
-                    className="w-full mt-2 bg-indigo-700 text-white py-2 rounded hover:bg-indigo-800 transition"
-                    onClick={() => onDownload(template.id, slide)}
-                  >
-                    Download Template
-                  </button>
-                )}
+                <div>
+                  <div className={`font-bold text-2xl ${styles.name}`}>{comment.username}</div>
+                  <div className={`text-base ${styles.handle}`}>@{comment.username} · Instagram</div>
+                </div>
               </div>
-            </SwiperSlide>
-          ))}
-        </Swiper>
-        {template.premiumOnly && (
-          <span className="absolute top-2 right-2 bg-gray-800 text-white text-xs px-2 py-1 rounded">
-            🔒 Locked
-          </span>
-        )}
-      </div>
-      <div className="p-4 text-center">
-        <h3 className="text-lg font-bold text-gray-800 mb-2">{template.type}</h3>
-        {isLocked && (
-          <>
-            <p className="text-sm text-red-600 font-medium">Upgrade to unlock</p>
-            <a
-              href="/pricing"
-              className="block mt-3 bg-gradient-to-r from-pink-500 to-purple-600 text-white font-bold py-2 px-4 rounded w-full shadow-lg hover:from-purple-600 hover:to-pink-500 transition transform hover:scale-105 animate-bounce"
-            >
-              Upgrade
-            </a>
-          </>
-        )}
-      </div>
+              {/* Center: Comment */}
+              <div className={`text-center text-2xl mb-8 ${styles.comment}`}>{comment.commentText}</div>
+              {/* Bottom: Stars and Generated by revilo */}
+              <div className="flex justify-between items-center mt-8">
+                <div className={`flex items-center gap-1 ${styles.stars}`}>
+                  {Array(5).fill(0).map((_, i) => (
+                    <span key={i}>★</span>
+                  ))}
+                </div>
+                <div className={`font-semibold ${styles.generated}`}>Generated by revilo</div>
+              </div>
+              {/* Download Button */}
+              {!isLocked && (
+                <button
+                  className="w-full mt-6 bg-indigo-700 text-white py-2 rounded hover:bg-indigo-800 transition"
+                  onClick={() => onDownload(template.id, comment)}
+                >
+                  Download Template
+                </button>
+              )}
+              {isLocked && (
+                <>
+                  <p className="text-sm text-red-600 font-medium mt-6">Upgrade to unlock</p>
+                  <a
+                    href="/pricing"
+                    className="block mt-3 bg-gradient-to-r from-pink-500 to-purple-600 text-white font-bold py-2 px-4 rounded w-full shadow-lg hover:from-purple-600 hover:to-pink-500 transition transform hover:scale-105 animate-bounce"
+                  >
+                    Upgrade
+                  </a>
+                </>
+              )}
+            </div>
+          </SwiperSlide>
+        ))}
+      </Swiper>
+      {template.premiumOnly && (
+        <span className="absolute top-2 right-2 bg-gray-800 text-white text-xs px-2 py-1 rounded">
+          🔒 Locked
+        </span>
+      )}
     </div>
   );
 } 
