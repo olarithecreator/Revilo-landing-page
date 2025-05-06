@@ -1,0 +1,26 @@
+﻿
+
+StatusCode        : 200
+StatusDescription : OK
+Content           : [{"Instagram handle":"hormozi","Post 
+                    Url":"https:\/\/www.instagram.com\/p\/CwIoSlmAair\/","Comment":"@alicornnj  created 
+                    AGI thank me later","username":"dankthebear","Commenter profile pics":"https:\/...
+RawContent        : HTTP/1.1 200 OK
+                    Transfer-Encoding: chunked
+                    Connection: keep-alive
+                    Nel: {"success_fraction":0,"report_to":"cf-nel","max_age":604800}
+                    Cf-Ray: 93b79727fe5adc94-FRA
+                    Vary: Accept-Encoding
+                    X-Ratelimit...
+Forms             : {}
+Headers           : {[Transfer-Encoding, chunked], [Connection, keep-alive], [Nel, 
+                    {"success_fraction":0,"report_to":"cf-nel","max_age":604800}], [Cf-Ray, 
+                    93b79727fe5adc94-FRA]...}
+Images            : {}
+InputFields       : {}
+Links             : {}
+ParsedHtml        : System.__ComObject
+RawContentLength  : 2940
+
+
+

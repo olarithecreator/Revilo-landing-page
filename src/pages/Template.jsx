@@ -31,44 +31,6 @@ const testimonials = [
   "Upgrading was the best decision for my business."
 ];
 
-const sampleComments = [
-  {
-    profileImage: "https://randomuser.me/api/portraits/men/32.jpg",
-    username: "john_doe",
-    commentText: "Super fast delivery, love it!"
-  },
-  {
-    profileImage: "https://randomuser.me/api/portraits/women/44.jpg",
-    username: "jane_smith",
-    commentText: "Great customer care and communication."
-  },
-  {
-    profileImage: "https://randomuser.me/api/portraits/men/65.jpg",
-    username: "mike_lee",
-    commentText: "Very professional and timely!"
-  },
-  {
-    profileImage: "https://randomuser.me/api/portraits/women/22.jpg",
-    username: "susan_chen",
-    commentText: "Loved my outfit, exactly as described."
-  },
-  {
-    profileImage: "https://randomuser.me/api/portraits/men/12.jpg",
-    username: "david_ross",
-    commentText: "Excellent packaging and presentation!"
-  },
-  {
-    profileImage: "https://randomuser.me/api/portraits/women/36.jpg",
-    username: "emily_jones",
-    commentText: "My friends keep asking where I ordered from."
-  },
-  {
-    profileImage: "https://randomuser.me/api/portraits/men/77.jpg",
-    username: "alex_kim",
-    commentText: "This is now my go-to page for all gifts!"
-  }
-];
-
 export default function Template() {
   const [userInstagram, setUserInstagram] = useState("");
   const [downloads, setDownloads] = useState([]);
@@ -183,6 +145,11 @@ export default function Template() {
     setLoading(false);
   };
 
+  const sortedTemplates = [
+    ...templates.filter(t => !t.premiumOnly),
+    ...templates.filter(t => t.premiumOnly)
+  ];
+
   return (
     <>
       {/* Mobile Navbar */}
@@ -285,22 +252,15 @@ export default function Template() {
             <div className="text-center my-8 text-red-600 font-medium">{error}</div>
           )}
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
-            {templates.map((t, i) => {
-              const isLocked = isTemplateLocked(t.id, downloads);
-              const showFreeBadge = ["Black", "White"].includes(t.id);
-              const showLockedInfo = isLocked && uniqueDownloads.length >= 3 && !["Black", "White"].includes(t.id);
-              return (
-                <TemplateCard
-                  key={t.id}
-                  template={t}
-                  comments={comments}
-                  isLocked={isLocked}
-                  onDownload={handleDownload}
-                  showFreeBadge={showFreeBadge}
-                  showLockedInfo={showLockedInfo}
-                />
-              );
-            })}
+            {sortedTemplates.map(template => (
+              <TemplateCard
+                key={template.id}
+                template={template}
+                comments={comments}
+                isLocked={template.premiumOnly}
+                onDownload={handleDownload}
+              />
+            ))}
           </div>
         </main>
       </div>
