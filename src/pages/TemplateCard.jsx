@@ -147,11 +147,13 @@ export default function TemplateCard({
       <div className="w-full flex flex-col items-center mt-4">
         {!isLocked ? (
           <button
-            className="w-full bg-indigo-700 text-white py-2 rounded hover:bg-indigo-800 transition"
+            className="w-full flex items-center justify-center gap-2 bg-gradient-to-r from-indigo-600 via-purple-500 to-pink-500 text-white py-3 rounded-lg font-bold shadow-xl hover:scale-105 hover:from-indigo-700 hover:to-pink-600 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-purple-400 focus:ring-offset-2"
             onClick={() => onDownload(template.id, currentComment)}
             aria-label="Download this review card"
             disabled={!currentComment || !currentComment.commentText}
+            style={{ fontSize: '1.1rem', letterSpacing: '0.01em' }}
           >
+            <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M4 16v2a2 2 0 002 2h12a2 2 0 002-2v-2M7 10l5 5 5-5M12 4v12" /></svg>
             Download Template
           </button>
         ) : (
