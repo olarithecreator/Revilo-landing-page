@@ -63,6 +63,27 @@ export default function Template() {
     return () => clearInterval(interval);
   }, []);
 
+  useEffect(() => {
+    // Fetch comments for 'hormozi' on mount for testing
+    const fetchHormoziComments = async () => {
+      try {
+        const url = `https://sheetdb.io/api/v1/o92oikd6sosbr?Instagram%20handle=hormozi`;
+        const response = await fetch(url);
+        const data = await response.json();
+        const hormoziComments = data.map(row => ({
+          username: row['username'],
+          profileImage: row['commenter profile picture'],
+          commentText: row['comment']
+        }));
+        setComments(hormoziComments);
+        console.log('Fetched hormozi comments:', hormoziComments);
+      } catch (err) {
+        console.error('Failed to fetch hormozi comments:', err);
+      }
+    };
+    fetchHormoziComments();
+  }, []);
+
   const handleDownload = async (templateId, comment) => {
     try {
       const apiKey = import.meta.env.VITE_BANNERBEAR_API_KEY;
