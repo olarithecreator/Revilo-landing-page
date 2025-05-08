@@ -79,7 +79,7 @@ export default function Dashboard() {
         <p>You've used {getUniqueDownloads(downloads).length} out of 3 available free downloads.</p>
         {getUniqueDownloads(downloads).length >= 3 && (
           <p className="text-red-600 font-bold mt-2">
-            You've reached your free download limit. Only <b>Black</b> template remains available. Upgrade to unlock more templates.
+            You've reached your free download limit. Only <b>Black</b> and <b>White</b> templates remain available. Upgrade to unlock more templates.
           </p>
         )}
       </div>
