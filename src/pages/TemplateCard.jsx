@@ -154,25 +154,7 @@ export default function TemplateCard({
           >
             Download Template
           </button>
-        ) : (
-          <>
-            <p className="text-sm text-red-600 font-medium mt-2">Upgrade to unlock</p>
-            <a
-              href="/pricing"
-              className="block mt-2 bg-gray-800 text-white font-bold py-2 px-4 rounded w-full shadow-lg hover:bg-gray-900 transition"
-              aria-label="Upgrade to unlock premium templates"
-            >
-              Upgrade
-            </a>
-            <a
-              href="/pricing"
-              className="text-xs text-gray-500 hover:text-indigo-700 mt-1 underline text-center block"
-              style={{ fontWeight: 500 }}
-            >
-              See Pricing
-            </a>
-          </>
-        )}
+        ) : null}
       </div>
     </div>
   );
