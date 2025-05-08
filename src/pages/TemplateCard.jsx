@@ -154,7 +154,25 @@ export default function TemplateCard({
           >
             Download Template
           </button>
-        ) : null}
+        ) : (
+          <div className="w-full flex flex-col items-center">
+            <div className="mb-3 w-full text-center">
+              <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-gradient-to-r from-pink-500 via-purple-500 to-indigo-500 text-white text-sm font-semibold shadow-lg animate-fade-in">
+                <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M12 8v4l3 3" /></svg>
+                Unlock premium templates with Pro or Business
+              </span>
+            </div>
+            <a
+              href="/pricing"
+              className="w-full py-3 px-6 rounded-lg font-bold flex items-center justify-center bg-gradient-to-r from-purple-600 via-pink-500 to-indigo-600 text-white shadow-xl hover:scale-105 hover:from-indigo-700 hover:to-pink-600 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-purple-400 focus:ring-offset-2"
+              style={{ fontSize: '1.1rem', letterSpacing: '0.01em' }}
+              aria-label="Upgrade to unlock premium templates"
+            >
+              <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M12 4v16m8-8H4" /></svg>
+              Upgrade Now
+            </a>
+          </div>
+        )}
       </div>
     </div>
   );
