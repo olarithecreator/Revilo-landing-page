@@ -304,5 +304,4 @@ const Pricing: React.FC = () => {
     </section>
   );
 };
-
 export default Pricing;

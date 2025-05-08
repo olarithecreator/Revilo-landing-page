@@ -147,8 +147,8 @@ export default function Template() {
   };
 
   const sortedTemplates = [
-    ...templates.filter(t => !t.premiumOnly),
-    ...templates.filter(t => t.premiumOnly)
+    ...templates.filter(t => t.id === 'Black' || t.id === 'White'),
+    ...templates.filter(t => t.id !== 'Black' && t.id !== 'White')
   ];
 
   return (
@@ -252,13 +252,21 @@ export default function Template() {
           {error && !loading && (
             <div className="text-center my-8 text-red-600 font-medium">{error}</div>
           )}
+          {/* User Progress Indicator */}
+          <div className="mb-6 text-center">
+            <span className="inline-block bg-indigo-100 text-indigo-800 font-semibold px-4 py-2 rounded-full">
+              {userState.hasReachedFreeLimit
+                ? 'You have used all 3 free downloads. Only free templates are available.'
+                : `You have ${3 - userState.uniqueDownloaded.length}/3 free downloads left`}
+            </span>
+          </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
             {sortedTemplates.map(template => (
               <TemplateCard
                 key={template.id}
                 template={template}
                 comments={comments}
-                isLocked={template.premiumOnly}
+                isLocked={isTemplateLocked(template.id, downloads)}
                 onDownload={handleDownload}
               />
             ))}

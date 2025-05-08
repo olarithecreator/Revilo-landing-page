@@ -35,6 +35,7 @@ function App() {
       <Route path="/dashboard" element={<Dashboard />} />
       <Route path="/templates" element={<Template />} />
       <Route path="/template" element={<Template />} />
+      <Route path="/pricing" element={<Pricing />} />
       {/* Add more routes as needed */}
     </Routes>
   );

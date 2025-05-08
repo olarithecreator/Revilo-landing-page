@@ -93,7 +93,7 @@ export default function TemplateCard({
       <div className="text-lg font-bold uppercase tracking-wide mb-4 text-center">
         {template.type}
       </div>
-      <div className={`rounded-2xl shadow-xl relative overflow-hidden p-8 flex flex-col justify-between min-h-[420px] w-full ${styles.bg} ${styles.text}`}>
+      <div className={`rounded-2xl shadow-xl relative overflow-hidden flex flex-col justify-between aspect-square w-full max-w-[400px] min-w-[250px] mx-auto p-6 ${styles.bg} ${styles.text}`}>
         <Swiper
           spaceBetween={10}
           slidesPerView={1}
@@ -102,8 +102,8 @@ export default function TemplateCard({
           className="flex-1"
         >
           {comments.map((comment, idx) => {
-            // Debug log
-            console.log("Swiper comment:", comment);
+            // Detailed debug log
+            console.log("Swiper comment:", comment, "username:", comment.username, "profileImage:", comment.profileImage, "commentText:", comment.commentText);
             return (
               <SwiperSlide key={idx}>
                 <div className="flex flex-col h-full justify-between">
@@ -159,10 +159,17 @@ export default function TemplateCard({
             <p className="text-sm text-red-600 font-medium mt-2">Upgrade to unlock</p>
             <a
               href="/pricing"
-              className="block mt-2 bg-gradient-to-r from-pink-500 to-purple-600 text-white font-bold py-2 px-4 rounded w-full shadow-lg hover:from-purple-600 hover:to-pink-500 transition transform hover:scale-105 animate-bounce"
+              className="block mt-2 bg-gray-800 text-white font-bold py-2 px-4 rounded w-full shadow-lg hover:bg-gray-900 transition"
               aria-label="Upgrade to unlock premium templates"
             >
               Upgrade
+            </a>
+            <a
+              href="/pricing"
+              className="text-xs text-gray-500 hover:text-indigo-700 mt-1 underline text-center block"
+              style={{ fontWeight: 500 }}
+            >
+              See Pricing
             </a>
           </>
         )}
