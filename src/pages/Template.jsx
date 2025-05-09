@@ -63,27 +63,6 @@ export default function Template() {
     return () => clearInterval(interval);
   }, []);
 
-  useEffect(() => {
-    // Fetch comments for 'leilahormozi' on mount for testing
-    const fetchLeilaHormoziComments = async () => {
-      try {
-        const url = `https://sheetdb.io/api/v1/o92oikd6sosbr?Instagram%20handle=leilahormozi`;
-        const response = await fetch(url);
-        const data = await response.json();
-        const leilaComments = data.map(row => ({
-          username: row['username'],
-          profileImage: row['commenter profile picture'],
-          commentText: row['comment']
-        }));
-        setComments(leilaComments);
-        console.log('Fetched leilahormozi comments:', leilaComments);
-      } catch (err) {
-        console.error('Failed to fetch leilahormozi comments:', err);
-      }
-    };
-    fetchLeilaHormoziComments();
-  }, []);
-
   const handleDownload = async (templateId, comment) => {
     try {
       const apiKey = import.meta.env.VITE_BANNERBEAR_API_KEY;
