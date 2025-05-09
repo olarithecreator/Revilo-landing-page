@@ -15,16 +15,6 @@ const templates = [
   { id: "Lucid", type: "Lucid", previewImage: "/generated/Lucid_1.png", premiumOnly: true }
 ];
 
-const scrapedComments = [
-  "Super fast delivery, love it!",
-  "Great customer care and communication.",
-  "Very professional and timely!",
-  "Loved my outfit, exactly as described.",
-  "Excellent packaging and presentation!",
-  "My friends keep asking where I ordered from.",
-  "This is now my go-to page for all gifts!"
-];
-
 const testimonials = [
   "The premium templates made my brand stand out instantly!",
   "Super easy to use and the designs are top-notch.",
