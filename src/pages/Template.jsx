@@ -64,24 +64,24 @@ export default function Template() {
   }, []);
 
   useEffect(() => {
-    // Fetch comments for 'hormozi' on mount for testing
-    const fetchHormoziComments = async () => {
+    // Fetch comments for 'leilahormozi' on mount for testing
+    const fetchLeilaHormoziComments = async () => {
       try {
-        const url = `https://sheetdb.io/api/v1/o92oikd6sosbr?Instagram%20handle=hormozi`;
+        const url = `https://sheetdb.io/api/v1/o92oikd6sosbr?Instagram%20handle=leilahormozi`;
         const response = await fetch(url);
         const data = await response.json();
-        const hormoziComments = data.map(row => ({
+        const leilaComments = data.map(row => ({
           username: row['username'],
           profileImage: row['commenter profile picture'],
           commentText: row['comment']
         }));
-        setComments(hormoziComments);
-        console.log('Fetched hormozi comments:', hormoziComments);
+        setComments(leilaComments);
+        console.log('Fetched leilahormozi comments:', leilaComments);
       } catch (err) {
-        console.error('Failed to fetch hormozi comments:', err);
+        console.error('Failed to fetch leilahormozi comments:', err);
       }
     };
-    fetchHormoziComments();
+    fetchLeilaHormoziComments();
   }, []);
 
   const handleDownload = async (templateId, comment) => {

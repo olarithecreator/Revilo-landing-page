@@ -87,6 +87,9 @@ export default function TemplateCard({
   const styles = templateStyles[template.type] || templateStyles.White;
   const currentComment = comments[currentIndex] || {};
 
+  // Debug logs
+  console.log('TemplateCard:', template.type, 'comments:', comments, 'currentIndex:', currentIndex);
+
   return (
     <div className="flex flex-col items-center">
       {/* Template Name */}
