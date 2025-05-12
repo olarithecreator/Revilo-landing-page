@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 
@@ -89,6 +89,10 @@ export default function TemplateCard({
 
   // Debug logs
   console.log('TemplateCard:', template.type, 'comments:', comments, 'currentIndex:', currentIndex);
+
+  useEffect(() => {
+    console.log("✅ Comments loaded into TemplateCard:", comments);
+  }, [comments]);
 
   return (
     <div className="flex flex-col items-center">
