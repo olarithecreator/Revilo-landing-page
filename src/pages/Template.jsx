@@ -53,17 +53,51 @@ export default function Template() {
     return () => clearInterval(interval);
   }, []);
 
+  const fetchComments = async (handle) => {
+    const url = `https://sheetdb.io/api/v1/o92oikd6sosbr?Instagram%20handle=${encodeURIComponent(handle)}`;
+    const response = await fetch(url);
+    const data = await response.json();
+    return data.map(row => ({
+      username: row['username'],
+      profileImage: row['commenter profile picture'],
+      commentText: row['comment']
+    }));
+  };
+
+  const handleFetch = async (e) => {
+    e.preventDefault();
+    setLoading(true);
+    setError("");
+    try {
+      const fetchedComments = await fetchComments(instagramHandle);
+      setComments(fetchedComments);
+      if (fetchedComments.length === 0) {
+        setError("No comments found for this Instagram handle yet.");
+      }
+    } catch (err) {
+      setError("Failed to fetch comments. Please try again.");
+    }
+    setLoading(false);
+  };
+
   const handleDownload = async (templateId, comment) => {
+    // Respect free user limits (example: 3 free downloads)
+    const userDownloads = downloads.filter(d => d.templateId === templateId);
+    if (userDownloads.length >= 3) {
+      alert('You have reached your free download limit for this template.');
+      return;
+    }
     try {
       const apiKey = import.meta.env.VITE_BANNERBEAR_API_KEY;
       if (!apiKey) throw new Error("Bannerbear API key not set");
-      const response = await fetch("https://api.bannerbear.com/v2/images", {
+      const response = await fetch(`https://api.bannerbear.com/v2/images`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${apiKey}`
         },
         body: JSON.stringify({
+          template: templateId, // Pass the template UID
           modifications: [
             { name: "comment", text: comment.commentText },
             { name: "username", text: comment.username },
@@ -89,6 +123,7 @@ export default function Template() {
         };
         const prev = JSON.parse(localStorage.getItem("downloads")) || [];
         localStorage.setItem("downloads", JSON.stringify([...prev, downloadRecord]));
+        setDownloads([...downloads, downloadRecord]);
       } else {
         throw new Error("Image generation failed");
       }
@@ -107,34 +142,6 @@ export default function Template() {
 
   const uniqueDownloads = useMemo(() => getUniqueDownloads(downloads), [downloads]);
   const userState = useMemo(() => getUserState(downloads), [downloads]);
-
-  const fetchComments = async (handle) => {
-    const url = `https://sheetdb.io/api/v1/o92oikd6sosbr?Instagram%20handle=${encodeURIComponent(handle)}`;
-    const response = await fetch(url);
-    const data = await response.json();
-    console.log('Fetched data from SheetDB:', data); // Debug log
-    return data.map(row => ({
-      username: row['username'],
-      profileImage: row['commenter profile picture'],
-      commentText: row['comment']
-    }));
-  };
-
-  const handleFetch = async (e) => {
-    e.preventDefault();
-    setLoading(true);
-    setError("");
-    try {
-      const fetchedComments = await fetchComments(instagramHandle);
-      setComments(fetchedComments);
-      if (fetchedComments.length === 0) {
-        setError("No comments found for this Instagram handle yet.");
-      }
-    } catch (err) {
-      setError("Failed to fetch comments. Please try again.");
-    }
-    setLoading(false);
-  };
 
   const sortedTemplates = [
     ...templates.filter(t => t.id === 'Black' || t.id === 'White'),
