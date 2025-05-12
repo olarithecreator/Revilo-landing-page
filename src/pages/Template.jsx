@@ -54,7 +54,7 @@ export default function Template() {
   }, []);
 
   const fetchComments = async (handle) => {
-    const url = `https://sheetdb.io/api/v1/o92oikd6sosbr?Instagram%20handle=${encodeURIComponent(handle)}`;
+    const url = `https://sheetdb.io/api/v1/o92oikd6sosbr/search?Instagram%20handle=${encodeURIComponent(handle)}`;
     const response = await fetch(url);
     const data = await response.json();
     return data.map(row => ({
