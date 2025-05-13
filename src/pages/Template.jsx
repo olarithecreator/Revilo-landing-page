@@ -56,14 +56,13 @@ export default function Template() {
     setError("");
     try {
       const fetchedComments = await fetchComments(instagramHandle);
-      console.log('Fetched comments:', fetchedComments);
       setComments(Array.isArray(fetchedComments) ? fetchedComments : []);
       if (!Array.isArray(fetchedComments) || fetchedComments.length === 0) {
         setError("No comments found for this Instagram handle yet.");
       }
     } catch (err) {
       setError("Failed to fetch comments. Please try again.");
-      }
+    }
     setLoading(false);
   };
 

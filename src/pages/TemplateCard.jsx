@@ -73,11 +73,7 @@ export default function TemplateCard({
   const styles = templateStyles[template.type] || templateStyles.White;
   const currentComment = comments[currentIndex] || {};
 
-  // Debug logs
-  console.log('TemplateCard:', template.type, 'comments:', comments, 'currentIndex:', currentIndex);
-
   useEffect(() => {
-    console.log("✅ Comments loaded into TemplateCard:", comments);
   }, [comments]);
 
   return (
@@ -94,9 +90,7 @@ export default function TemplateCard({
           onSlideChange={(swiper) => setCurrentIndex(swiper.realIndex)}
           className="flex-1"
         >
-          {comments.map((comment, idx) => {
-            // Detailed debug log
-            console.log("Swiper comment:", comment, "username:", comment.username, "profileImage:", comment.profileImage, "commentText:", comment.commentText);
+          {Array.isArray(comments) && comments.map((comment, idx) => {
             return (
               <SwiperSlide key={idx}>
                 <div className="flex flex-col h-full justify-between">
