@@ -115,7 +115,7 @@ export default function TemplateCard({
                     </div>
                   </div>
                   {/* Center: Comment */}
-                  <div className={`text-center text-2xl mb-8 ${styles.comment}`}>
+                  <div className={`text-center text-2xl mb-8 ${styles.comment} border-2 border-red-500`}>
                     {comment.commentText
                       ? comment.commentText.split('\n').map((line, idx) => (
                           <span key={idx}>
