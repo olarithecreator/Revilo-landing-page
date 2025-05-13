@@ -40,8 +40,8 @@ export default function Template() {
         setError("");
         try {
           const fetchedComments = await fetchComments(handleFromUrl);
-          setComments(Array.isArray(fetchedComments) ? fetchedComments : []);
-          if (!Array.isArray(fetchedComments) || fetchedComments.length === 0) {
+          setComments(fetchedComments);
+          if (!fetchedComments || fetchedComments.length === 0) {
             setError("No comments found for this Instagram handle yet.");
           }
         } catch (err) {
@@ -62,9 +62,6 @@ export default function Template() {
     const url = `https://sheetdb.io/api/v1/o92oikd6sosbr/search?Instagram%20handle=${encodeURIComponent(handle)}`;
     const response = await fetch(url);
     const data = await response.json();
-    if (!Array.isArray(data)) {
-      return [];
-    }
     return data.map(row => ({
       username: row['username'],
       profileImage: row['commenter profile picture'],
@@ -78,8 +75,8 @@ export default function Template() {
     setError("");
     try {
       const fetchedComments = await fetchComments(instagramHandle);
-      setComments(Array.isArray(fetchedComments) ? fetchedComments : []);
-      if (!Array.isArray(fetchedComments) || fetchedComments.length === 0) {
+      setComments(fetchedComments);
+      if (!fetchedComments || fetchedComments.length === 0) {
         setError("No comments found for this Instagram handle yet.");
       }
     } catch (err) {
