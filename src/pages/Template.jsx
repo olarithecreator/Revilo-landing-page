@@ -15,18 +15,11 @@ const templates = [
   { id: "Lucid", type: "Lucid", previewImage: "/generated/Lucid_1.png", premiumOnly: true }
 ];
 
-const testimonials = [
-  "The premium templates made my brand stand out instantly!",
-  "Super easy to use and the designs are top-notch.",
-  "Upgrading was the best decision for my business."
-];
-
 export default function Template() {
   const [userInstagram, setUserInstagram] = useState("");
   const [downloads, setDownloads] = useState([]);
   const [showSharePopup, setShowSharePopup] = useState(false);
   const [shareTemplate, setShareTemplate] = useState(null);
-  const [carouselIndex, setCarouselIndex] = useState(0);
   const [mobileNavOpen, setMobileNavOpen] = useState(false);
   const [instagramHandle, setInstagramHandle] = useState("");
   const [comments, setComments] = useState([]);
@@ -46,13 +39,6 @@ export default function Template() {
     if (metaDesc) metaDesc.setAttribute("content", "Browse our stunning review card templates.");
   }, []);
 
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setCarouselIndex((prev) => (prev + 1) % testimonials.length);
-    }, 4000);
-    return () => clearInterval(interval);
-  }, []);
-
   const fetchComments = async (handle) => {
     const url = `https://sheetdb.io/api/v1/o92oikd6sosbr/search?Instagram%20handle=${encodeURIComponent(handle)}`;
         const response = await fetch(url);
@@ -70,8 +56,9 @@ export default function Template() {
     setError("");
     try {
       const fetchedComments = await fetchComments(instagramHandle);
-      setComments(fetchedComments);
-      if (fetchedComments.length === 0) {
+      console.log('Fetched comments:', fetchedComments);
+      setComments(Array.isArray(fetchedComments) ? fetchedComments : []);
+      if (!Array.isArray(fetchedComments) || fetchedComments.length === 0) {
         setError("No comments found for this Instagram handle yet.");
       }
     } catch (err) {
@@ -216,20 +203,6 @@ export default function Template() {
         {/* Main content */}
         <main className="flex-1 bg-gray-50 p-6">
           <h1 className="text-2xl md:text-3xl text-gray-800 mb-6">Templates</h1>
-          {/* Testimonial Carousel */}
-          <div className="mb-8 max-w-xl mx-auto">
-            <div className="bg-purple-50 border border-purple-200 rounded-lg p-4 text-center shadow transition-all">
-              <span className="text-purple-900 text-base italic block min-h-[32px]">{testimonials[carouselIndex]}</span>
-              <div className="flex justify-center mt-2 gap-1">
-                {testimonials.map((_, idx) => (
-                  <span
-                    key={idx}
-                    className={`inline-block w-2 h-2 rounded-full ${carouselIndex === idx ? 'bg-purple-600' : 'bg-purple-200'}`}
-                  ></span>
-                ))}
-              </div>
-            </div>
-          </div>
           {/* Instagram handle input form */}
           <form onSubmit={handleFetch} className="mb-8 flex gap-2 justify-center">
             <input
