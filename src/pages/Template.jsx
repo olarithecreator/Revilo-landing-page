@@ -263,7 +263,7 @@ export default function Template() {
                 key={template.id}
                 template={template}
                 comments={comments}
-                isLocked={isTemplateLocked(template.id, downloads)}
+                isLocked={isTemplateLocked(template, userState)}
                 onDownload={handleDownload}
               />
             ))}
