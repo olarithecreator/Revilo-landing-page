@@ -28,9 +28,28 @@ export default function Template() {
 
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
-    setUserInstagram(params.get("instagram") || "your_handle");
+    const handleFromUrl = params.get("instagram");
+    setUserInstagram(handleFromUrl || "your_handle");
+    setInstagramHandle(handleFromUrl || "");
     const storedDownloads = JSON.parse(localStorage.getItem("downloads")) || [];
     setDownloads(storedDownloads);
+    // Automatically fetch comments if handle is present in URL
+    if (handleFromUrl) {
+      (async () => {
+        setLoading(true);
+        setError("");
+        try {
+          const fetchedComments = await fetchComments(handleFromUrl);
+          setComments(Array.isArray(fetchedComments) ? fetchedComments : []);
+          if (!Array.isArray(fetchedComments) || fetchedComments.length === 0) {
+            setError("No comments found for this Instagram handle yet.");
+          }
+        } catch (err) {
+          setError("Failed to fetch comments. Please try again.");
+        }
+        setLoading(false);
+      })();
+    }
   }, []);
 
   useEffect(() => {
