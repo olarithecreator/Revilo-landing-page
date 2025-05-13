@@ -60,13 +60,16 @@ export default function Template() {
 
   const fetchComments = async (handle) => {
     const url = `https://sheetdb.io/api/v1/o92oikd6sosbr/search?Instagram%20handle=${encodeURIComponent(handle)}`;
-        const response = await fetch(url);
-        const data = await response.json();
+    const response = await fetch(url);
+    const data = await response.json();
+    if (!Array.isArray(data)) {
+      return [];
+    }
     return data.map(row => ({
-          username: row['username'],
-          profileImage: row['commenter profile picture'],
-          commentText: row['Comment']
-        }));
+      username: row['username'],
+      profileImage: row['commenter profile picture'],
+      commentText: row['Comment']
+    }));
   };
 
   const handleFetch = async (e) => {
