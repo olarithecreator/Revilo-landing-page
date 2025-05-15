@@ -1,6 +1,7 @@
 // Utility functions for template access and user state
 
 export function getUniqueDownloads(downloads) {
+  if (!Array.isArray(downloads)) return [];
   return Array.from(new Set(downloads.map(d => d.templateId)));
 }
 

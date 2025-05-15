@@ -15,7 +15,14 @@ export default function Dashboard() {
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
     setUserInstagram(params.get("instagram") || "your_handle");
-    const stored = JSON.parse(localStorage.getItem("downloads")) || [];
+    let stored;
+    try {
+      const raw = localStorage.getItem("downloads");
+      const parsed = JSON.parse(raw);
+      stored = Array.isArray(parsed) ? parsed : [];
+    } catch {
+      stored = [];
+    }
     setDownloads(stored);
   }, []);
 

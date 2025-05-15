@@ -31,7 +31,14 @@ export default function Template() {
     const handleFromUrl = params.get("instagram");
     setUserInstagram(handleFromUrl || "your_handle");
     setInstagramHandle(handleFromUrl || "");
-    const storedDownloads = JSON.parse(localStorage.getItem("downloads")) || [];
+    let storedDownloads;
+    try {
+      const raw = localStorage.getItem("downloads");
+      const parsed = JSON.parse(raw);
+      storedDownloads = Array.isArray(parsed) ? parsed : [];
+    } catch {
+      storedDownloads = [];
+    }
     setDownloads(storedDownloads);
     // Automatically fetch comments if handle is present in URL
     if (handleFromUrl) {
