@@ -14,10 +14,8 @@ export function getUserState(downloads) {
   };
 }
 
-export function isTemplateLocked(templateId, downloads) {
-  if (templateId === "Black" || templateId === "White") return false; // Black and White are always free
-  const { uniqueDownloaded, hasReachedFreeLimit } = getUserState(downloads);
-  if (hasReachedFreeLimit) return true;
-  if (!hasReachedFreeLimit && downloads.some(d => d.templateId === templateId)) return true;
-  return false;
+export function isTemplateLocked(template, userState) {
+  const t = userState?.uniqueDownloaded;
+  if (!Array.isArray(t)) return false;
+  return !!(template.premiumOnly && t.some(i => i.templateId === template.id));
 } 
