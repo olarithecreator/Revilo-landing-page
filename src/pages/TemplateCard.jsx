@@ -100,7 +100,7 @@ export default function TemplateCard({
               {/* Top: Profile and Name */}
               <div className="flex items-center mb-8">
                 <img
-                  src={comment["commenter profile picture"] || fallbackProfile}
+                  src={comment.profileImage || fallbackProfile}
                   alt={comment.username ? `${comment.username}'s profile` : 'Instagram user'}
                   className={`w-20 h-20 rounded-full border-4 ${styles.border} mr-4 object-cover`}
                   loading="lazy"
