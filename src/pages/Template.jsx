@@ -71,7 +71,7 @@ export default function Template() {
     const data = await response.json();
     return data.map(row => ({
       username: row['username'],
-      profileImage: row['commenter profile picture'],
+      profileImage: row['profilepicture'],
       commentText: row['Comment']
     }));
   };
