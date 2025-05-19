@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
-import { Textfit } from 'react-textfit';
+import { Textfit } from '@ataverascrespo/react18-ts-textfit';
 
 const templateStyles = {
   Black: {
