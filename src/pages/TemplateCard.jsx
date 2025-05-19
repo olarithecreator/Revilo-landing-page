@@ -73,6 +73,12 @@ export default function TemplateCard({
   const styles = templateStyles[template.type] || templateStyles.White;
   const fallbackProfile = "/default-avatar.png";
 
+  // Debug logs
+  console.log('All comments:', comments);
+  if (comments && comments.length > 0) {
+    console.log('First comment:', comments[0]);
+  }
+
   // Extract color code from styles.comment for inline style
   const commentColor = styles.comment.match(/#(?:[0-9a-fA-F]{3}){1,2}/)?.[0] || "#393634";
 
