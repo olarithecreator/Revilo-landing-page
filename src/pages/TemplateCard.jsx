@@ -11,6 +11,7 @@ const templateStyles = {
     name: "text-[#ffffff] font-bold",
     stars: "text-[#f7aa04]",
     handle: "text-[#ffffff]",
+    border: "#fff"
   },
   Minimal: {
     bg: "bg-[#f5e6da]",
@@ -19,6 +20,7 @@ const templateStyles = {
     name: "text-[#1a1a1a] font-bold",
     stars: "text-[#f7aa04]",
     handle: "text-[#1a1a1a]",
+    border: "#9CA3AF"
   },
   Elegant: {
     bg: "bg-[#fdf2c6]",
@@ -27,6 +29,7 @@ const templateStyles = {
     name: "text-[#cb7920] font-bold",
     stars: "text-[#f7aa04]",
     handle: "text-[#cb7920]",
+    border: "#CB7920"
   },
   Lucid: {
     bg: "bg-[#e4d3c5]",
@@ -35,6 +38,7 @@ const templateStyles = {
     name: "text-[#1a1a1a] font-bold",
     stars: "text-[#f7aa04]",
     handle: "text-[#1a1a1a]",
+    border: "#000000"
   },
   White: {
     bg: "bg-[#fff8f0]",
@@ -43,6 +47,7 @@ const templateStyles = {
     name: "text-[#000000] font-bold",
     stars: "text-[#f7aa04]",
     handle: "text-[#000000]",
+    border: "#000000"
   },
   Vibrant: {
     bg: "bg-[#f2e7fe]",
@@ -51,6 +56,7 @@ const templateStyles = {
     name: "text-[#802fbf] font-bold",
     stars: "text-[#f7aa04]",
     handle: "text-[#802fbf]",
+    border: "#802FBF"
   },
   Modern: {
     bg: "bg-[#e3e3e3]",
@@ -59,6 +65,7 @@ const templateStyles = {
     name: "text-[#2a151d] font-bold",
     stars: "text-[#f7aa04]",
     handle: "text-[#2a151d]",
+    border: "#2A151D"
   },
 };
 
@@ -102,7 +109,8 @@ export default function TemplateCard({
                 <img
                   src={comment.profileImage || fallbackProfile}
                   alt={comment.username ? `${comment.username}'s profile` : 'Instagram user'}
-                  className={`w-20 h-20 rounded-full border-4 ${styles.border} mr-4 object-cover`}
+                  className={`w-20 h-20 rounded-full mr-4 object-cover`}
+                  style={{ border: `4px solid ${styles.border}` }}
                   loading="lazy"
                   onError={e => { e.target.onerror = null; e.target.src = fallbackProfile; }}
                 />
