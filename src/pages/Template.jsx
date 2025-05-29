@@ -65,13 +65,18 @@ export default function Template() {
     if (metaDesc) metaDesc.setAttribute("content", "Browse our stunning review card templates.");
   }, []);
 
+  useEffect(() => {
+    window.toast = toast;
+    return () => { window.toast = undefined; };
+  }, []);
+
   const fetchComments = async (handle) => {
     const url = `https://sheetdb.io/api/v1/o92oikd6sosbr/search?Instagram%20handle=${encodeURIComponent(handle)}`;
     const response = await fetch(url);
     const data = await response.json();
     return data.map(row => ({
       username: row['username'],
-      profileImage: row['profilepicture'],
+      profileImage: row['profileimage'],
       commentText: row['Comment']
     }));
   };
@@ -100,32 +105,20 @@ export default function Template() {
       return;
     }
     try {
-      const apiKey = import.meta.env.VITE_BANNERBEAR_API_KEY;
-      if (!apiKey) throw new Error("Bannerbear API key not set");
-      const response = await fetch(`https://api.bannerbear.com/v2/images`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${apiKey}`
-        },
-        body: JSON.stringify({
-          template: templateId, // Pass the template UID
-          modifications: [
-            { name: "comment", text: comment.commentText },
-            { name: "username", text: comment.username },
-            { name: "profile_image", image_url: comment.profileImage }
-          ]
-        })
-      });
-      const data = await response.json();
-      if (data.image_url) {
-        // Download the image
-        const link = document.createElement("a");
-        link.href = data.image_url;
+      // Instead of calling Banner Bear, trigger the download of the generated image (assume a canvas or image is rendered in the DOM)
+      // You may need to update this logic to match how your image is generated
+      const imageElement = document.getElementById(`template-image-${templateId}`);
+      if (imageElement) {
+        const dataUrl = imageElement.toDataURL('image/png');
+        const link = document.createElement('a');
+        link.href = dataUrl;
         link.download = `template_${templateId}_${comment.username}.png`;
         document.body.appendChild(link);
         link.click();
         document.body.removeChild(link);
+      } else {
+        throw new Error('Generated image not found.');
+      }
         // Store in localStorage
         const downloadRecord = {
           templateId,
@@ -136,11 +129,8 @@ export default function Template() {
         const prev = JSON.parse(localStorage.getItem("downloads")) || [];
         localStorage.setItem("downloads", JSON.stringify([...prev, downloadRecord]));
         setDownloads([...downloads, downloadRecord]);
-      } else {
-        throw new Error("Image generation failed");
-      }
     } catch (err) {
-      alert("Image generation failed: " + (err.message || err));
+      alert("Image download failed: " + (err.message || err));
     }
   };
 
