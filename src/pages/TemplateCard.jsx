@@ -134,11 +134,10 @@ export default function TemplateCard({
                 {/* Top: Profile and Name */}
                 <div className="flex items-center mb-8">
                   <img
-                    src={comment.profileImage || fallbackProfile}
+                    src={comment.profileImage ? `/.netlify/functions/image-proxy?url=${encodeURIComponent(comment.profileImage)}` : fallbackProfile}
                     alt={comment.username ? `${comment.username}'s profile` : 'Instagram user'}
                     className={`w-20 h-20 rounded-full mr-4 object-cover`}
                     style={{ border: `4px solid ${styles.border}` }}
-                    loading="lazy"
                     onError={e => { e.target.onerror = null; e.target.src = fallbackProfile; }}
                   />
                   <div>
